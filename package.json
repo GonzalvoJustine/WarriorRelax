@@ -1,5 +1,6 @@
 {
     "devDependencies": {
+        "@babel/preset-react": "^7.0.0",
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@fortawesome/free-brands-svg-icons": "^5.15.4",
         "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -8,6 +9,7 @@
         "@symfony/webpack-encore": "^1.0.0",
         "bootstrap": "^5.1.1",
         "core-js": "^3.0.0",
+        "file-loader": "^6.0.0",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.42.1",
         "sass-loader": "^10.0.0",
