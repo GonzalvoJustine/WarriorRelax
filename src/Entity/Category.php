@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    const PARENT = "parent";
+    const CHILD = "child";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -44,11 +47,17 @@ class Category
      */
     private $programs;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $term;
+
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->setTerm(self::PARENT);
     }
 
     public function getId(): ?int
@@ -148,6 +157,24 @@ class Category
     public function removeProgram(Program $program): self
     {
         $this->programs->removeElement($program);
+
+        return $this;
+    }
+
+    public function getTerm(): ?string
+    {
+        return $this->term;
+    }
+
+    public function setTerm(?string $term): self
+    {
+        if(!in_array($term, [self::PARENT, self::CHILD])){
+            // On lance une exception ce qui provoque l'arrêt des scripts
+
+            throw new \InvalidArgumentException("Invalid term");
+        }
+
+        $this->term = $term;
 
         return $this;
     }

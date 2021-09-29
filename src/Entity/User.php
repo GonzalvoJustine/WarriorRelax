@@ -73,11 +73,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $avatar;
 
     /**
-     * @ORM\OneToMany(targetEntity=Option::class, mappedBy="user")
-     */
-    private $param;
-
-    /**
      * @ORM\OneToMany(targetEntity=Exercise::class, mappedBy="user")
      */
     private $exercise;
@@ -102,10 +97,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $level;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Option::class, inversedBy="users")
+     */
+    private $parameter;
+
     public function __construct()
     {
         $this->avatar = new ArrayCollection();
-        $this->param = new ArrayCollection();
         $this->exercise = new ArrayCollection();
         $this->session = new ArrayCollection();
         $this->program = new ArrayCollection();
@@ -292,36 +291,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Option[]
-     */
-    public function getParam(): Collection
-    {
-        return $this->param;
-    }
-
-    public function addParam(Option $param): self
-    {
-        if (!$this->param->contains($param)) {
-            $this->param[] = $param;
-            $param->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParam(Option $param): self
-    {
-        if ($this->param->removeElement($param)) {
-            // set the owning side to null (unless already changed)
-            if ($param->getUser() === $this) {
-                $param->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Exercise[]
      */
     public function getExercise(): Collection
@@ -431,6 +400,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLevel(?Level $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    public function getParameter(): ?Option
+    {
+        return $this->parameter;
+    }
+
+    public function setParameter(?Option $parameter): self
+    {
+        $this->parameter = $parameter;
 
         return $this;
     }
