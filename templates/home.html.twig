@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>bubu</p>
+    {% if is_granted('ROLE_ADMIN') %}
+        <p>Vous êtes connecté en tant qu'administrateur</p>
+    {% elseif is_granted('ROLE_USER') %}
+        <p>Vous êtes connecté en tant d'utilisateur</p>
+    {% endif %}
+    <a href="{{ path('app_logout') }}">Déconnexion</a>
 {% endblock %}
