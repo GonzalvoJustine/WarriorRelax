@@ -17,52 +17,52 @@ class Session
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="session")
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Exercise::class, inversedBy="sessions")
      */
-    private $exercises;
+    private Collection $exercises;
 
     /**
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="session")
      */
-    private $program;
+    private Collection $program;
 
     /**
      * @ORM\ManyToOne(targetEntity=SessionHistory::class, inversedBy="sessions")
      */
-    private $sessionHistory;
+    private ?SessionHistory $sessionHistory;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="sessions")
      */
-    private $categories;
+    private Collection $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="sessions")
      */
-    private $level;
+    private ?Level $level;
 
     public function __construct()
     {

@@ -21,88 +21,93 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private mixed $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
      */
-    private $gender;
+    private ?string $gender;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $birthday;
+    private ?\DateTimeInterface $birthday;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Avatar::class, inversedBy="users")
      */
-    private $avatar;
+    private Collection $avatar;
 
     /**
      * @ORM\OneToMany(targetEntity=Exercise::class, mappedBy="user")
      */
-    private $exercise;
+    private Collection $exercise;
 
     /**
      * @ORM\OneToMany(targetEntity=Session::class, mappedBy="user")
      */
-    private $session;
+    private Collection $session;
 
     /**
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="user")
      */
-    private $program;
+    private Collection $program;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="users")
      */
-    private $tag;
+    private ?Tag $tag;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="users")
      */
-    private $level;
+    private ?Level $level;
 
     /**
      * @ORM\ManyToOne(targetEntity=Option::class, inversedBy="users")
      */
-    private $parameter;
+    private ?Option $parameter;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isVerified = false;
 
     public function __construct()
     {
@@ -110,6 +115,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->exercise = new ArrayCollection();
         $this->session = new ArrayCollection();
         $this->program = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -159,6 +166,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array<mixed> $roles
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -195,7 +206,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -414,6 +425,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setParameter(?Option $parameter): self
     {
         $this->parameter = $parameter;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

@@ -17,47 +17,47 @@ class Program
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date;
+    private ?\DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $repeat_program;
+    private ?int $repeat_program;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="program")
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="program")
      */
-    private $session;
+    private ?Session $session;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="programs")
      */
-    private $categories;
+    private Collection $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="programs")
      */
-    private $level;
+    private ?Level $level;
 
     public function __construct()
     {

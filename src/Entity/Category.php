@@ -20,37 +20,37 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\ManyToMany(targetEntity=Exercise::class, inversedBy="categories")
      */
-    private $exercises;
+    private Collection $exercises;
 
     /**
      * @ORM\ManyToMany(targetEntity=Session::class, inversedBy="categories")
      */
-    private $sessions;
+    private Collection $sessions;
 
     /**
      * @ORM\ManyToMany(targetEntity=Program::class, inversedBy="categories")
      */
-    private $programs;
+    private Collection $programs;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $term;
+    private ?string $term;
 
     public function __construct()
     {

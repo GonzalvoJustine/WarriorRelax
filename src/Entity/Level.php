@@ -17,42 +17,42 @@ class Level
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $level;
+    private ?int $level;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="level")
      */
-    private $users;
+    private Collection $users;
 
     /**
      * @ORM\OneToMany(targetEntity=Exercise::class, mappedBy="level")
      */
-    private $exercises;
+    private Collection $exercises;
 
     /**
      * @ORM\OneToMany(targetEntity=Session::class, mappedBy="level")
      */
-    private $sessions;
+    private Collection $sessions;
 
     /**
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="level")
      */
-    private $programs;
+    private Collection $programs;
 
     /**
      * @ORM\OneToMany(targetEntity=Avatar::class, mappedBy="level")
      */
-    private $avatars;
+    private Collection $avatars;
 
     public function __construct()
     {

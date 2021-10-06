@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&family=Lora:wght@400;700&display=swap');
+
+.container {
+    max-width: 640px;
+}
+header, .main .container, footer {
+    text-align: center;
+}
+header img {
+    margin-top: 1rem;
+}
+h1,h2,h3 {
+    font-family: 'Calistoga', cursive;
+}
+h1 {
+    text-transform: uppercase;
+}
+body {
+    font-family: 'Lora', serif;
+    background-color: #AAE0FA;
+    color: #00144D;
+    font-size: 1rem;
+}
+body p {
+    font-size: 1.5rem;
+}
+body span {
+    font-size: 1.5rem;
+}
+header p a {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    padding: .3rem .5rem;
+}
+.btn-confirm {
+    background-color: #00144D;
+    opacity: 0.6;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+.main a {
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+footer {
+    background-color: #000000;
+    width: 100%;
+    height: auto;
+    color: #ffffff;
+}
+footer p {
+    padding: 1rem 1rem 1rem 3rem;
+    margin: 0;
+    font-size: 1rem;
+}
+img {
+    image-rendering: -webkit-optimize-contrast;
+}

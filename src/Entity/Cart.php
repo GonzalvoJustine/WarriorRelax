@@ -15,22 +15,22 @@ class Cart
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $total_exercise;
+    private ?int $total_exercise;
 
     /**
      * @ORM\ManyToOne(targetEntity=Exercise::class, inversedBy="carts")
      */
-    private $exercises;
+    private ?Exercise $exercises;
 
     public function getId(): ?int
     {

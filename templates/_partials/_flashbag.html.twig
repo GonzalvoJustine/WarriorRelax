@@ -1,0 +1,9 @@
+{# Flashbag #}
+{% for label, messages in app.flashes %}
+    {# Flashbag labels have the same names of the Bootstrap alert classes. #}
+    <div class="alert alert-{{ label }}" role="alert">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endfor %}

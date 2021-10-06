@@ -1,0 +1,34 @@
+{% apply inline_css(source('@styles/emails/app.css')) %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue sur Warrior Relax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <header class="container">
+        <img src="{{ email.image('@images/email/logo.png') }}" alt="Logo Warrior Relax" width="100" height="auto">
+        <h1><b>Warrior Relax</b></h1>
+        <p>Bienvenue sur le site de <a href="{{ url('app_home') }}" >Warrior Relax</a></p>
+    </header>
+
+    <div class="main">
+        <div class="container">
+            <h2>Confirmation de votre adresse e-mail</h2>
+            <span>
+                Pour activer votre compte, <br>
+                merci de confirmer votre adresse e-mail en cliquant sur le lien suivant :
+            </span>
+            <div class="btn-confirm">
+                <a href="{{ signedUrl }}">Confirmer mon adresse e-mail</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Le lien est valide pendant {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+    </footer>
+</body>
+</html>
+{% endapply %}

@@ -18,13 +18,20 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Build a form with html attributes and Validator constraints.
+     *
+     * @param FormBuilderInterface<callable> $builder
+     * @param array<mixed> $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'Pseudo',
+                'label' => false,
                 'attr' => [
-                    'autofocus' => true
+                    'autofocus' => true,
+                    'placeholder' => "Pseudo"
                 ],
                 'required' => true,
                 'constraints' =>
@@ -33,9 +40,10 @@ class RegistrationFormType extends AbstractType
                     ])
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => false,
                 'attr' => [
-                    'autofocus' => true
+                    'autofocus' => true,
+                    'placeholder' => "Email"
                 ],
                 'required' => true,
                 'constraints' =>
@@ -48,8 +56,11 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => "Les mots de passe saisis ne correspondent pas.",
                 'required' => true,
                 'first_options' => [
-                    'label' => "Mot de passe",
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'label' => false,
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'placeholder' => "Mot de passe"
+                    ],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Veuillez entrer un mot de passe',
@@ -62,9 +73,10 @@ class RegistrationFormType extends AbstractType
                     ],
                 ],
                 'second_options' => [
-                    'label' => "Confirmer le mot de passe",
+                    'label' => false,
                     'attr' => [
-                        'title' => "Confirmer le mot de passe"
+                        'title' => "Confirmer le mot de passe",
+                        'placeholder' => "Confirmation du mot de passe"
                     ],
                     'constraints' => [
                         new NotBlank([

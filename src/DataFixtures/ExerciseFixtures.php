@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Repository\CategoryRepository;
 use Faker;
 use App\Entity\User;
 use App\Entity\Level;
@@ -13,7 +14,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ExerciseFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    /**
+     * @param ObjectManager $manager
+     */
+    public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
 
@@ -51,6 +55,9 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * @return string[]
+     */
     public function getDependencies()
     {
         return [

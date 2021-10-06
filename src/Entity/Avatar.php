@@ -17,22 +17,22 @@ class Avatar
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="avatar")
      */
-    private $users;
+    private Collection $users;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="avatars")
      */
-    private $level;
+    private ?Level $level;
 
     public function __construct()
     {

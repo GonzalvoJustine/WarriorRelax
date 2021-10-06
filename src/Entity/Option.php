@@ -18,22 +18,22 @@ class Option
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $key_option;
+    private ?string $key_option;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $value_option;
+    private ?string $value_option;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="parameter")
      */
-    private $users;
+    private Collection $users;
 
     public function __construct()
     {

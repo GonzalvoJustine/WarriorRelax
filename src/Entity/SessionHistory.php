@@ -17,22 +17,22 @@ class SessionHistory
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Session::class, mappedBy="sessionHistory")
      */
-    private $sessions;
+    private Collection $sessions;
 
     public function __construct()
     {

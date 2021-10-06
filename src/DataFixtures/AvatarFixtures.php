@@ -11,7 +11,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class AvatarFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    /**
+     * @param ObjectManager $manager
+     */
+    public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
 
@@ -34,6 +37,9 @@ class AvatarFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * @return string[]
+     */
     public function getDependencies()
     {
         return [

@@ -17,22 +17,22 @@ class Tag
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $key_tag;
+    private ?string $key_tag;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $value_tag;
+    private ?string $value_tag;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="tag")
      */
-    private $users;
+    private Collection $users;
 
     public function __construct()
     {
