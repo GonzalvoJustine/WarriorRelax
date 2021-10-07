@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Changer votre mot de passe{% endblock %}
+
+{% block body %}
+    <h1>Changer votre mot de passe</h1>
+
+    {% include '_partials/_flashbag.html.twig' %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.oldPassword) }}
+        {{ form_row(form.password) }}
+        <button class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

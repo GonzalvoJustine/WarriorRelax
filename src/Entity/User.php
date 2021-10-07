@@ -70,37 +70,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Avatar::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Avatar::class, inversedBy="users", cascade={"persist"})
      */
     private Collection $avatar;
 
     /**
-     * @ORM\OneToMany(targetEntity=Exercise::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Exercise::class, mappedBy="user", cascade={"persist"})
      */
     private Collection $exercise;
 
     /**
-     * @ORM\OneToMany(targetEntity=Session::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Session::class, mappedBy="user", cascade={"persist"})
      */
     private Collection $session;
 
     /**
-     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="user", cascade={"persist"})
      */
     private Collection $program;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="users", cascade={"persist"})
      */
     private ?Tag $tag;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="users", cascade={"persist"})
      */
     private ?Level $level;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Option::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Option::class, inversedBy="users", cascade={"persist"})
      */
     private ?Option $parameter;
 

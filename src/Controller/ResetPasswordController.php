@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangeCurrentPasswordFormType;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Model\ChangePassword;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,11 +16,12 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-#[Route('/mot-de-passe-oublie')]
+#[Route('/modifier-mot-de-passe')]
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -168,5 +171,40 @@ class ResetPasswordController extends AbstractController
         $this->setTokenObjectInSession($resetToken);
 
         return $this->redirectToRoute('app_check_email');
+    }
+
+    /**
+     * Change the password.
+     */
+    #[Route('/profile', name: 'app_edit_password')]
+    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+
+        $changePassword = new ChangePassword();
+
+        $form = $this->createForm(ChangeCurrentPasswordFormType::class, $changePassword);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $newPassword = $form->get('password')['first']->getData();
+            $newEncodedPassword = $passwordEncoder->encodePassword($user, $newPassword);
+            $user->setPassword($newEncodedPassword);
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe à bien été changé !');
+
+            return $this->redirectToRoute('app_edit_password');
+        }
+
+        return $this->render('reset_password/index.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
     }
 }

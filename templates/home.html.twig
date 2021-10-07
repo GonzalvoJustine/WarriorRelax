@@ -6,5 +6,6 @@
     {% elseif is_granted('ROLE_USER') %}
         <p>Vous êtes connecté en tant d'utilisateur</p>
     {% endif %}
+    {% include '_partials/_flashbag.html.twig' %}
     <a href="{{ path('app_logout') }}">Déconnexion</a>
 {% endblock %}
