@@ -177,7 +177,7 @@ class ResetPasswordController extends AbstractController
      * Change the password.
      */
     #[Route('/profile', name: 'app_edit_password')]
-    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function editPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
