@@ -1,0 +1,50 @@
+body {
+  font-family: 'Lora', serif;
+  background-color: $primary;
+}
+
+h1, h2, h3, h4, h5, h6, a {
+  font-family: 'Calistoga', cursive;
+}
+
+a.nav-item, a {
+  color: $secondary;
+  text-decoration: none;
+}
+
+//Button
+//----------------------------------------------------------------------------------------------------------------------
+.btn-white {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+  color: $secondary;
+  border-radius: 1.5rem;
+  box-shadow: 0 3px 6px #00000029;
+  padding: .5rem 2.25rem;
+  margin: 1.5rem 1.5rem 1.5rem 0;
+  text-transform: uppercase;
+  width: max-content;
+  &:hover {
+    color: #00144D99;
+  }
+  i {
+    font-size: 2rem;
+    padding-left: .5rem;
+  }
+}
+
+//Page style
+//----------------------------------------------------------------------------------------------------------------------
+.blockOne {
+  background-color: #00144D99;
+  color: white;
+  padding: 1rem;
+}
+
+.blockTwo {
+  background-color: white;
+  color: $secondary;
+  padding: 1rem;
+}

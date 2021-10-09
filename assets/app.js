@@ -11,10 +11,17 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import Swiper, { Navigation, Pagination } from 'swiper';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './js/App';
+
+ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
+
+/*import Swiper, { Navigation, Pagination } from 'swiper';
 
 new Swiper('.my-swiper', {
     // pass modules here
     modules: [Navigation, Pagination],
     // ...
-});
+});*/
