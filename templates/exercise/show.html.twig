@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercise{% endblock %}
+
+{% block body %}
+    <h1 class="bandeau">{{ exercise.title }}</h1>
+
+    <div class="container">
+        <div id="exercise" class="row">
+            <div class="col-12 text-center">
+                <img src="{{ exercise.media }}" alt={{ exercise.title }} width={{ 300 }}>
+            </div>
+            <div class="col-12 text-center">
+                <button class="btn btn-white">
+                    Ajouter un exercice
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+            </div>
+
+            <div class="col-12">
+                <div class="blockOne">
+                    <h2>Description :</h2>
+                    <div class="content">
+                        <p>{{ exercise.description }}</p>
+                    </div>
+                </div>
+                <div class="blockTwo">
+                    <h2>Indication :</h2>
+                    <p>{{ exercise.indication }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('exercise_index') }}">back to list</a>
+
+    <a href="{{ path('exercise_edit', {'id': exercise.id}) }}">edit</a>
+
+    {{ include('exercise/_delete_form.html.twig') }}
+{% endblock %}

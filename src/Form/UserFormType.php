@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,19 +22,21 @@ class UserFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Genre"
+                    'class' => 'form-control'
                 ],
                 'choices' => [
                     'Mr' => 'Mr',
                     'Mme' => 'Mme',
                 ],
+                'placeholder' => 'Genre',
                 'required' => false
             ])
             ->add('username', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Pseudo"
+                    'placeholder' => "Pseudo",
+                    'class' => 'form-control'
                 ],
                 'required' => true,
                 'constraints' =>
@@ -45,7 +48,8 @@ class UserFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Nom"
+                    'placeholder' => "Nom",
+                    'class' => 'form-control'
                 ],
                 'required' => false
             ])
@@ -53,23 +57,28 @@ class UserFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Prénom"
+                    'placeholder' => "Prénom",
+                    'class' => 'form-control'
                 ],
                 'required' => false
             ])
-            ->add('birthday', BirthdayType::class, [
+            ->add('birthday', DateType::class, [
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Date de naissance"
+                    'placeholder' => "Date de naissance",
+                    'class' => 'form-control js-datepicker'
                 ],
+                'widget' => 'single_text',
+                /*'html5' => false,*/
                 'required' => false
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Email"
+                    'placeholder' => "Email",
+                    'class' => 'form-control'
                 ],
                 'required' => true
             ])

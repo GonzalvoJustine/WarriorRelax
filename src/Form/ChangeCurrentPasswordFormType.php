@@ -19,7 +19,8 @@ class ChangeCurrentPasswordFormType extends AbstractType
             ->add('oldPassword', PasswordType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => "Mot de passe actuel"
+                    'placeholder' => "Mot de passe actuel",
+                    'class' => 'form-control'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -34,7 +35,8 @@ class ChangeCurrentPasswordFormType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'placeholder' => "Nouveau mot de passe"
+                        'placeholder' => "Nouveau mot de passe",
+                        'class' => 'form-control'
                     ],
                     'constraints' => [
                         new NotBlank([
@@ -51,7 +53,8 @@ class ChangeCurrentPasswordFormType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'placeholder' => "Confirmation du nouveau mot de passe"
+                        'placeholder' => "Confirmation",
+                        'class' => 'form-control'
                     ],
                 ],
                 'invalid_message' => 'Les champs de mot de passe doivent correspondre.',

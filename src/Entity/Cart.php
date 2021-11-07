@@ -2,12 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CartRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=CartRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Cart:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Cart:collection', 'read:Cart:item', 'read:Cart']]
+        ]
+    ]
+)]
 class Cart
 {
     /**
@@ -15,21 +26,28 @@ class Cart
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:Exercise', 'read:Cart:collection'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:Exercise', 'read:Cart:collection'])]
     private ?string $title;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:Cart:item'])]
     private ?int $total_exercise;
 
     /**
      * @ORM\ManyToOne(targetEntity=Exercise::class, inversedBy="carts")
      */
+    #[
+        Groups(['read:Cart:item']),
+        Valid()
+    ]
     private ?Exercise $exercises;
 
     public function getId(): ?int

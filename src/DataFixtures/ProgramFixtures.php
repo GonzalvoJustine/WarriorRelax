@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Domain;
 use Faker;
 use App\Entity\User;
 use App\Entity\Level;
@@ -27,16 +28,14 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $users = $manager->getRepository(User::class)->findAll();
         $sessions = $manager->getRepository(Session::class)->findAll();
 
-        $catParent = $manager->getRepository(Category::class)->findByTerm('parent');
-        $catChildren = $manager->getRepository(Category::class)->findByTerm('child');
+        $categories = $manager->getRepository(Category::class)->findAll();
 
         while($count > 0) {
 
             shuffle($levels);
             shuffle($users);
             shuffle($sessions);
-            shuffle($catParent);
-            shuffle($catChildren);
+            shuffle($categories);
 
             $program = new Program();
             $program    ->setTitle($faker->lastname)
@@ -46,8 +45,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                         ->setLevel($levels[0])
                         ->setUser($users[0])
                         ->setSession($sessions[0])
-                        ->addCategory($catParent[0])
-                        ->addCategory($catChildren[0]);
+                        ->addCategory($categories[0])
+            ;
 
             $count--;
             $manager->persist($program);
@@ -63,9 +62,9 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            LevelFixtures::class,
             UserFixtures::class,
-            SessionFixtures::class
+            SessionFixtures::class,
+            CategoryFixtures::class
         ];
     }
 }

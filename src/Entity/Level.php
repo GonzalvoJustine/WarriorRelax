@@ -2,14 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LevelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LevelRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Level:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Level:collection', 'read:Level:item']]
+        ]
+    ]
+)]
 class Level
 {
     /**
@@ -17,16 +27,19 @@ class Level
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Level:collection', 'read:Session', 'read:Program', 'read:Exercise', 'read:Avatar'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Level:collection', 'read:Session', 'read:Program', 'read:Exercise', 'read:Avatar'])]
     private ?string $name;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Level:item'])]
     private ?int $level;
 
     /**

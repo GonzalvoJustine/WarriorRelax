@@ -2,15 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OptionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OptionRepository::class)
  * @ORM\Table(name="`option`")
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Option:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Option:collection']]
+        ]
+    ]
+)]
 class Option
 {
     /**
@@ -18,16 +28,19 @@ class Option
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Option:collection'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Option:collection'])]
     private ?string $key_option;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[Groups(['read:User', 'read:Option:collection'])]
     private ?string $value_option;
 
     /**

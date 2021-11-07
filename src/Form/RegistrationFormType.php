@@ -31,7 +31,8 @@ class RegistrationFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Pseudo"
+                    'placeholder' => "Pseudo",
+                    'class' => 'form-control'
                 ],
                 'required' => true,
                 'constraints' =>
@@ -43,7 +44,8 @@ class RegistrationFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Email"
+                    'placeholder' => "Email",
+                    'class' => 'form-control'
                 ],
                 'required' => true,
                 'constraints' =>
@@ -59,7 +61,8 @@ class RegistrationFormType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'placeholder' => "Mot de passe"
+                        'placeholder' => "Mot de passe",
+                        'class' => 'form-control'
                     ],
                     'constraints' => [
                         new NotBlank([
@@ -76,7 +79,8 @@ class RegistrationFormType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'title' => "Confirmer le mot de passe",
-                        'placeholder' => "Confirmation du mot de passe"
+                        'placeholder' => "Confirmation du mot de passe",
+                        'class' => 'form-control'
                     ],
                     'constraints' => [
                         new NotBlank([
@@ -94,7 +98,10 @@ class RegistrationFormType extends AbstractType
 
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => "J'accepte les condictions d'utilisation de ce site.",
+                'label' => "J'accepte les conditions d'utilisation de ce site.",
+                'label_attr' => [
+                    'class' => 'label-true'
+                ],
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [

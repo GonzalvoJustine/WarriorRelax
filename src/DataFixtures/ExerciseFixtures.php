@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Domain;
 use App\Repository\CategoryRepository;
 use Faker;
 use App\Entity\User;
@@ -26,15 +27,15 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
         $levels = $manager->getRepository(Level::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
 
-        $catParent = $manager->getRepository(Category::class)->findByTerm('parent');
-        $catChildren = $manager->getRepository(Category::class)->findByTerm('child');
+        $categories = $manager->getRepository(Category::class)->findAll();
+        $domains = $manager->getRepository(Domain::class)->findAll();
 
         while($count > 0) {
 
             shuffle($levels);
             shuffle($users);
-            shuffle($catParent);
-            shuffle($catChildren);
+            shuffle($categories);
+            shuffle($domains);
 
             $exercise = new Exercise();
             $exercise   ->setTitle($faker->lastname)
@@ -45,8 +46,9 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                         ->setCreatedAt($faker->dateTime())
                         ->setLevel($levels[0])
                         ->setUser($users[0])
-                        ->addCategory($catParent[0])
-                        ->addCategory($catChildren[0]);
+                        ->addCategory($categories[0])
+                        ->addDomain($domains[0])
+            ;
 
             $count--;
             $manager->persist($exercise);

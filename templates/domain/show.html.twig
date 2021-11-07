@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Domain{% endblock %}
+
+{% block body %}
+
+    {% for category in categories %}
+
+        <a href="{{ path('category_show', {'id': category.id}) }}">
+            <img src="{{ category.image }}" alt="séances" width="300" height="300">
+            {{ category.title }}
+        </a>
+
+    {% else %}
+        <p>Page non trouvée</p>
+    {% endfor %}
+
+    <a href="{{ path('domain_index') }}">back to list</a>
+
+    <a href="{{ path('domain_edit', {'id': domain.id}) }}">edit</a>
+
+    {{ include('domain/_delete_form.html.twig') }}
+{% endblock %}

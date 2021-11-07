@@ -2,14 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ExerciseRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=ExerciseRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Exercise:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Exercise:collection', 'read:Exercise:item', 'read:Exercise']]
+        ]
+    ]
+)]
 class Exercise
 {
     /**
@@ -17,36 +28,43 @@ class Exercise
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Exercise:collection', 'read:Session', 'read:Category', 'read:Cart'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Exercise:collection', 'read:Session', 'read:Category', 'read:Cart'])]
     private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:Exercise:item'])]
     private ?string $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:Exercise:item'])]
     private ?string $indication;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:Exercise:collection', 'read:Session', 'read:Category'])]
     private ?string $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:Exercise:item', 'read:Session'])]
     private ?string $media;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
+    #[Groups(['read:Exercise:item'])]
     private \DateTime $createdAt;
 
     /**
@@ -57,28 +75,50 @@ class Exercise
     /**
      * @ORM\ManyToMany(targetEntity=Session::class, mappedBy="exercises")
      */
+    #[
+        Groups(['read:Exercise:item']),
+        Valid()
+    ]
     private Collection $sessions;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="exercises")
      */
+    #[
+        Groups(['read:Exercise:item']),
+        Valid()
+    ]
     private Collection $categories;
 
     /**
      * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="exercises")
      */
+    #[
+        Groups(['read:Exercise:item']),
+        Valid()
+    ]
     private Collection $carts;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="exercises")
      */
+    #[
+        Groups(['read:Exercise:item']),
+        Valid()
+    ]
     private ?Level $level;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Domain::class, inversedBy="exercises")
+     */
+    private $domains;
 
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->carts = new ArrayCollection();
+        $this->domains = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,4 +305,29 @@ class Exercise
 
         return $this;
     }
+
+    /**
+     * @return Collection|Domain[]
+     */
+    public function getDomains(): Collection
+    {
+        return $this->domains;
+    }
+
+    public function addDomain(Domain $domain): self
+    {
+        if (!$this->domains->contains($domain)) {
+            $this->domains[] = $domain;
+        }
+
+        return $this;
+    }
+
+    public function removeDomain(Domain $domain): self
+    {
+        $this->domains->removeElement($domain);
+
+        return $this;
+    }
+
 }

@@ -2,14 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Tag:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Tag:collection']]
+        ]
+    ]
+)]
 class Tag
 {
     /**
@@ -17,16 +27,19 @@ class Tag
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Tag:collection'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Tag:collection'])]
     private ?string $key_tag;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[Groups(['read:User', 'read:Tag:collection'])]
     private ?string $value_tag;
 
     /**

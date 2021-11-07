@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Domain index{% endblock %}
+
+{% block body %}
+
+    {#<div id="categories"></div>#}
+
+    {% for domain in domains %}
+
+        <a href="{{ path('domain_show', {'id': domain.id}) }}">
+            <img src="{{ domain.image }}" alt="séances" width="300" height="300">
+            {{ domain.title }}
+        </a>
+        <a href="{{ path('domain_edit', {'id': domain.id}) }}">edit</a>
+
+    {% else %}
+        <p>Page non trouvée</p>
+    {% endfor %}
+
+    <a href="{{ path('domain_new') }}">Create new</a>
+{% endblock %}

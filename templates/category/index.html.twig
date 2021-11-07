@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+
+    {#<div id="categories"></div>#}
+
+    {% for exercise in exercises %}
+
+        <a href="{{ path('exercise_show', {'id': exercise.id}) }}">
+            <img src="{{ exercise.image }}" alt="séances" width="300" height="300">
+            {{ exercise.title }}
+        </a>
+
+    {% else %}
+        <p>Page non trouvée</p>
+    {% endfor %}
+
+    <a href="{{ path('category_new') }}">Create new</a>
+{% endblock %}

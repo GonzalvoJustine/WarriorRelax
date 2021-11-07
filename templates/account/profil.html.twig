@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1 class="bandeau">Mon espace</h1>
+
+    <div class="container">
+        <div id="profil" class="row">
+            <div class="col-12 col-md-4">
+                <div class="accordion" id="profilOne">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="profilProgression">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseProgression" aria-expanded="true" aria-controls="collapseProgression">
+                                <i class="fas fa-dumbbell"></i>
+                                Progression
+                            </button>
+                        </h2>
+                        <div id="collapseProgression" class="accordion-collapse collapse show" aria-labelledby="profilProgression" data-bs-parent="#profilOne">
+                            <div class="accordion-body">
+                                La progression est en cours de création, merci de votre compréhension.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mt-5">
+                        <h2 class="accordion-header" id="profilHistory">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseHistory" aria-expanded="false" aria-controls="collapseHistory">
+                                <i class="fas fa-history"></i>
+                                Historique
+                            </button>
+                        </h2>
+                        <div id="collapseHistory" class="accordion-collapse collapse" aria-labelledby="profilHistory" data-bs-parent="#profilOne">
+                            <div class="accordion-body">
+                                L'historique est en cours de création, merci de votre compréhension.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="accordion" id="profilTwo">
+                    <div class="accordion-item form-information">
+                        <h2 class="accordion-header" id="profilInformation">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseInformation" aria-expanded="true" aria-controls="collapseInformation">
+                                <i class="fas fa-user-alt"></i>
+                                Informations
+                            </button>
+                        </h2>
+                        <div id="collapseInformation" class="accordion-collapse collapse show" aria-labelledby="profilInformation" data-bs-parent="#profilInformation">
+                            <div class="accordion-body">
+                                {% include '_partials/_flashbag.html.twig' %}
+
+                                {{ form_start(form_info) }}
+                                    {{ form_row(form_info.gender) }}
+                                    {{ form_row(form_info.username) }}
+                                    {{ form_row(form_info.lastname) }}
+                                    {{ form_row(form_info.firstname) }}
+                                    {{ form_row(form_info.birthday) }}
+                                    {{ form_row(form_info.email) }}
+                                    <button class="btn btn-white">
+                                        Enregistrer
+                                        <i class="fas fa-user-edit"></i>
+                                    </button>
+                                {{ form_end(form_info) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mt-5">
+                        <h2 class="accordion-header" id="profilPassword">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapsePassword" aria-expanded="false" aria-controls="collapsePassword">
+                                <i class="fas fa-unlock-alt"></i>
+                                Mot de passe
+                            </button>
+                        </h2>
+                        <div id="collapsePassword" class="accordion-collapse collapse" aria-labelledby="profilPassword" data-bs-parent="#profilPassword">
+                            <div class="accordion-body">
+                                {% include '_partials/_flashbag.html.twig' %}
+
+                                {{ form_start(form) }}
+                                {{ form_row(form.oldPassword) }}
+                                {{ form_row(form.password) }}
+                                <button class="btn btn-white">
+                                    Enregistrer
+                                    <i class="fas fa-user-edit"></i>
+                                </button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="accordion" id="profilThree">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="profilParam">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseParam" aria-expanded="true" aria-controls="collapseParam">
+                                <i class="fas fa-cogs"></i>
+                                Paramètre
+                            </button>
+                        </h2>
+                        <div id="collapseParam" class="accordion-collapse collapse show" aria-labelledby="profilParam" data-bs-parent="#profilParam">
+                            <div class="accordion-body">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <p>Vous êtes connecté en tant qu'administrateur</p>
+                                {% elseif is_granted('ROLE_USER') %}
+                                    <p>Vous êtes connecté en tant d'utilisateur</p>
+                                {% endif %}
+                                Les paramètres sont en cours de création, merci de votre compréhension.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ path('app_logout') }}" class="btn btn-white">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Se déconnecter
+                </a>
+                <a href="{{ path('app_delete_user') }}" class="btn btn-white">
+                    <i class="far fa-trash-alt"></i> Supprimer mon compte
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

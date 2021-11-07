@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+
+        {#<div id="categories"></div>#}
+
+        {% for category in categories %}
+
+                <a href="{{ path('category_show', {'id': category.id}) }}">
+                        <img src="{{ category.image }}" alt="séances" width="300" height="300">
+                        {{ category.title }}
+                </a>
+
+        {% else %}
+                <p>Page non trouvée</p>
+        {% endfor %}
+
+{% endblock %}

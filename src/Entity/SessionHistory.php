@@ -2,14 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SessionHistoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=SessionHistoryRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:SessionHistory:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:SessionHistory:collection', 'read:SessionHistory:item', 'read:SessionHistory']]
+        ]
+    ]
+)]
 class SessionHistory
 {
     /**
@@ -17,21 +28,28 @@ class SessionHistory
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:SessionHistory:collection'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:SessionHistory:collection'])]
     private ?string $title;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
+    #[Groups(['read:SessionHistory:item'])]
     private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Session::class, mappedBy="sessionHistory")
      */
+    #[
+        Groups(['read:SessionHistory:item']),
+        Valid()
+    ]
     private Collection $sessions;
 
     public function __construct()

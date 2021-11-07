@@ -39,7 +39,6 @@ class CartFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            UserFixtures::class,
             ExerciseFixtures::class
         ];
     }

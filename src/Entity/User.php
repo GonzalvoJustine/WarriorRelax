@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -9,11 +10,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cette adresse mail")
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:User:collection']],
+    denormalizationContext: ['groups' => ['put:User']],
+    itemOperations: [
+        'put',
+        'get' => [
+            'normalization_context' => ['groups' => ['read:User:collection', 'read:User:item', 'read:User']]
+        ]
+    ]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -21,87 +34,125 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User:collection', 'read:Session', 'read:Program'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
+    #[Groups(['read:User:item', 'put:User'])]
     private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
+    #[Groups(['read:User:item', 'read:Session'])]
     private mixed $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
+    #[Groups(['read:User:item', 'put:User'])]
     private string $password;
 
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
      */
+    #[Groups(['read:User:item', 'put:User'])]
     private ?string $gender;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
+    #[Groups(['read:User:collection', 'put:User', 'read:Session', 'read:Program'])]
     private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:User:item', 'put:User'])]
     private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:User:item', 'put:User'])]
     private ?string $firstname;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
+    #[Groups(['read:User:item', 'put:User'])]
     private ?\DateTimeInterface $birthday;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
+    #[Groups(['read:User:item'])]
     private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Avatar::class, inversedBy="users", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item', 'put:User']),
+        Valid()
+    ]
     private Collection $avatar;
 
     /**
      * @ORM\OneToMany(targetEntity=Exercise::class, mappedBy="user", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item']),
+        Valid()
+    ]
     private Collection $exercise;
 
     /**
      * @ORM\OneToMany(targetEntity=Session::class, mappedBy="user", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item']),
+        Valid()
+    ]
     private Collection $session;
 
     /**
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="user", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item']),
+        Valid()
+    ]
     private Collection $program;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="users", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item']),
+        Valid()
+    ]
     private ?Tag $tag;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="users", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item']),
+        Valid()
+    ]
     private ?Level $level;
 
     /**
      * @ORM\ManyToOne(targetEntity=Option::class, inversedBy="users", cascade={"persist"})
      */
+    #[
+        Groups(['read:User:item', 'put:User']),
+        Valid()
+    ]
     private ?Option $parameter;
 
     /**

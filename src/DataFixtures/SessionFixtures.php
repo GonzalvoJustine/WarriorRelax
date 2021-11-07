@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Domain;
 use Faker;
 use App\Entity\User;
 use App\Entity\Level;
@@ -30,8 +31,8 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
 
         $exercises = $manager->getRepository(Exercise::class)->findAll();
 
-        $catParent = $manager->getRepository(Category::class)->findByTerm('parent');
-        $catChildren = $manager->getRepository(Category::class)->findByTerm('child');
+        $categories = $manager->getRepository(Category::class)->findAll();
+        $domains = $manager->getRepository(Domain::class)->findAll();
 
         while($count > 0) {
 
@@ -39,8 +40,8 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
             shuffle($users);
             shuffle($sessions_history);
             shuffle($exercises);
-            shuffle($catParent);
-            shuffle($catChildren);
+            shuffle($categories);
+            shuffle($domains);
 
             $session = new Session();
             $session    ->setTitle($faker->lastname)
@@ -50,8 +51,9 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
                         ->setUser($users[0])
                         ->setSessionHistory($sessions_history[0])
                         ->addExercise($exercises[0])
-                        ->addCategory($catParent[0])
-                        ->addCategory($catChildren[0]);
+                        ->addCategory($categories[0])
+                        ->addDomain($domains[0])
+            ;
 
             $count--;
             $manager->persist($session);
@@ -69,7 +71,9 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
         return [
             LevelFixtures::class,
             UserFixtures::class,
-            SessionHistoryFixtures::class
+            ExerciseFixtures::class,
+            SessionHistoryFixtures::class,
+            DomainFixtures::class
         ];
     }
 }

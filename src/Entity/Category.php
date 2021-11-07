@@ -2,62 +2,89 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Category:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Category:collection', 'read:Category:item', 'read:Category']]
+        ]
+    ]
+)]
 class Category
 {
-    const PARENT = "parent";
-    const CHILD = "child";
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:Session', 'read:Category:collection', 'read:Program', 'read:Exercise', 'read:Domains'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:Session', 'read:Category:collection', 'read:Program', 'read:Exercise'])]
     private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:Session', 'read:Category:collection', 'read:Exercise'])]
     private ?string $image;
 
     /**
      * @ORM\ManyToMany(targetEntity=Exercise::class, inversedBy="categories")
      */
+    #[
+        Groups(['read:Category:item']),
+        Valid()
+    ]
     private Collection $exercises;
 
     /**
      * @ORM\ManyToMany(targetEntity=Session::class, inversedBy="categories")
      */
+    #[
+        Groups(['read:Category:item']),
+        Valid()
+    ]
     private Collection $sessions;
 
     /**
      * @ORM\ManyToMany(targetEntity=Program::class, inversedBy="categories")
      */
+    #[
+        Groups(['read:Category:item']),
+        Valid()
+    ]
     private Collection $programs;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity=Domain::class, inversedBy="categories")
      */
-    private ?string $term;
+    #[
+        Groups(['read:Category:item']),
+        Valid()
+    ]
+    private Collection $domains;
 
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->programs = new ArrayCollection();
-        $this->setTerm(self::PARENT);
+        $this->domains = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,20 +188,26 @@ class Category
         return $this;
     }
 
-    public function getTerm(): ?string
+    /**
+     * @return Collection|Domain[]
+     */
+    public function getDomains(): Collection
     {
-        return $this->term;
+        return $this->domains;
     }
 
-    public function setTerm(?string $term): self
+    public function addDomain(Domain $domain): self
     {
-        if(!in_array($term, [self::PARENT, self::CHILD])){
-            // On lance une exception ce qui provoque l'arrêt des scripts
-
-            throw new \InvalidArgumentException("Invalid term");
+        if (!$this->domains->contains($domain)) {
+            $this->domains[] = $domain;
         }
 
-        $this->term = $term;
+        return $this;
+    }
+
+    public function removeDomain(Domain $domain): self
+    {
+        $this->domains->removeElement($domain);
 
         return $this;
     }

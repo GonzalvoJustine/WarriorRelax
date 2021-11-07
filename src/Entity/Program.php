@@ -2,14 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Program:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Program:collection', 'read:Program:item', 'read:Program']]
+        ]
+    ]
+)]
 class Program
 {
     /**
@@ -17,46 +28,67 @@ class Program
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Program:collection', 'read:Category'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Program:collection', 'read:Category'])]
     private ?string $title;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
+    #[Groups(['read:Program:item'])]
     private ?\DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    #[Groups(['read:Program:item'])]
     private ?int $repeat_program;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
+    #[Groups(['read:Program:item'])]
     private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="program")
      */
+    #[
+        Groups(['read:Program:item']),
+        Valid()
+    ]
     private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="program")
      */
+    #[
+        Groups(['read:Program:item']),
+        Valid()
+    ]
     private ?Session $session;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="programs")
      */
+    #[
+        Groups(['read:Program:item']),
+        Valid()
+    ]
     private Collection $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="programs")
      */
+    #[
+        Groups(['read:Program:item']),
+        Valid()
+    ]
     private ?Level $level;
 
     public function __construct()

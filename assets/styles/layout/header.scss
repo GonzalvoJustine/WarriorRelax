@@ -1,0 +1,22 @@
+header {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  img.logo_mobile {
+    display: block;
+  }
+  img.logo {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  header {
+    img.logo {
+      display: block;
+    }
+    img.logo_mobile {
+      display: none;
+    }
+  }
+}

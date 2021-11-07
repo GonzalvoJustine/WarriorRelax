@@ -2,14 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SessionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=SessionRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:Session:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Session:collection', 'read:Session:item', 'read:Session']]
+        ]
+    ]
+)]
 class Session
 {
     /**
@@ -17,31 +28,43 @@ class Session
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:User', 'read:Session:collection', 'read:Program', 'read:Category', 'read:Exercise', 'read:SessionHistory'])]
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Session:collection', 'read:Program', 'read:Category', 'read:Exercise', 'read:SessionHistory'])]
     private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:User', 'read:Session:collection', 'read:Program', 'read:Category', 'read:SessionHistory'])]
     private ?string $image;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
+    #[Groups(['read:Session:item'])]
     private ?\DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="session")
      */
+    #[
+        Groups(['read:Session:item']),
+        Valid()
+    ]
     private ?User $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Exercise::class, inversedBy="sessions")
      */
+    #[
+        Groups(['read:Session:item']),
+        Valid()
+    ]
     private Collection $exercises;
 
     /**
@@ -57,18 +80,36 @@ class Session
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="sessions")
      */
+    #[
+        Groups(['read:Session:item']),
+        Valid()
+    ]
     private Collection $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="sessions")
      */
+    #[
+        Groups(['read:Session:item']),
+        Valid()
+    ]
     private ?Level $level;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Domain::class, inversedBy="sessions")
+     */
+    #[
+        Groups(['read:Session:item']),
+        Valid()
+    ]
+    private Collection $domains;
 
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
         $this->program = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->domains = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,6 +266,30 @@ class Session
     public function setLevel(?Level $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Domain[]
+     */
+    public function getDomains(): Collection
+    {
+        return $this->domains;
+    }
+
+    public function addDomain(Domain $domain): self
+    {
+        if (!$this->domains->contains($domain)) {
+            $this->domains[] = $domain;
+        }
+
+        return $this;
+    }
+
+    public function removeDomain(Domain $domain): self
+    {
+        $this->domains->removeElement($domain);
 
         return $this;
     }

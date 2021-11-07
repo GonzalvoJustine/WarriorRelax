@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Warrior Relax{% endblock %}
+
+{% block body %}
+
+    <h1 class="bandeau">Accueil</h1>
+
+    <div class="container">
+        <div id="home">
+            <div class="blockOne row">
+                <div class="col-12">
+                    <h2>Titre :</h2>
+                    <div class="content">
+                        <p>Morbi mollis tellus ac sapien. Morbi
+                            mattis ullamcorper velit. Nulla porta
+                            dolor. Praesent venenatis metus at
+                            tortor pulvinar varius.
+                        </p>
+                        <p>Morbi mollis tellus ac sapien. Morbi
+                            mattis ullamcorper velit. Nulla porta
+                            dolor. Praesent venenatis metus at
+                            tortor pulvinar varius.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="timer row">
+                <div id="timer" class="col-4">
+                    <img src="{{ asset('build/images/home/timer.svg') }}" alt="timer" width='100'/>
+                </div>
+                <div class="col-8 content">
+                    <p>Morbi mollis tellus ac sapien. Morbi
+                        mattis ullamcorper velit. Nulla porta
+                        dolor. Praesent venenatis metus at
+                        tortor pulvinar varius.
+                    </p>
+                </div>
+            </div>
+            <div class="blockTwo home">
+                <div class="row">
+                    <div class="col-8 content">
+                        <p>Morbi mollis tellus ac
+                            sapien. Morbi mattis
+                            ullamcorper velit. Nulla
+                            porta dolor. Praesent
+                            venenatis metus
+                            at tortor pulvinar varius.
+                            porta dolor. Praesent
+                            venenatis metus
+                            at tortor pulvinar varius.
+                        </p>
+                    </div>
+                    <div id="warrior-woman" class="col-4">
+                        <img src="{{ asset('build/images/home/warrior.svg') }}" alt="warrior" width='125'/>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('domain_index') }}" class="btn btn-white">
+                Tenter l'aventure
+                <i class="far fa-caret-square-right"></i>
+            </a>
+            <div class="entre-nous row">
+                <div class="col-12">
+                    <img src="{{ asset('build/images/home/entre_nous.svg') }}" alt="Entre nous" width='275'/>
+                    <div class="blockOne home">
+                        <p>Morbi mollis tellus ac sapien. Morbi
+                            mattis ullamcorper velit. Nulla porta
+                            dolor. Praesent venenatis metus at
+                            tortor pulvinar varius.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('category_others') }}" class="btn btn-white">
+                Découvrez l'univers
+                <i class="far fa-caret-square-right"></i>
+            </a>
+            <div class="blockTwo man">
+                <div class="row">
+                    <div id="man" class="col-4">
+                        <img src="{{ asset('build/images/home/warrior_man.svg') }}" alt="Warrior man" width='100'/>
+                    </div>
+                    <div class="col-8 content">
+                        <p>Morbi mollis tellus ac sapien. Morbi
+                            mattis ullamcorper velit. Nulla porta
+                            dolor. Praesent venenatis metus at
+                            tortor pulvinar varius.
+                            Morbi mollis tellus ac sapien. Morbi
+                            mattis ullamcorper velit. Nulla porta
+                            dolor. Praesent venenatis metus at
+                            tortor pulvinar varius.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('app_account_login') }}" class="btn btn-white">
+                Créer votre compte
+                <i class="far fa-caret-square-right"></i>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+#home {
+  text-align: center;
+  margin-bottom: 2rem;
+  .timer {
+    margin-top: 2rem;
+    text-align: right;
+    p {
+      margin: 0;
+      padding-right: 1rem;
+    }
+    div:first-child {
+      align-self: center;
+    }
+  }
+  .blockTwo.home {
+    display: flex;
+    align-self: flex-end;
+    text-align: left;
+    img {
+      float: right;
+    }
+  }
+  #warrior-woman {
+    align-self: end;
+  }
+  .entre-nous {
+    margin-top: 2rem;
+    .blockOne.home {
+      margin-top: 0;
+    }
+  }
+  .man {
+    text-align: right;
+    #man {
+      align-self: center;
+    }
+    p {
+      text-align: right;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #home {
+    #timer, #warrior-woman, #man {
+      display: flex;
+      justify-content: center;
+    }
+    .entre-nous {
+      img {
+        width: 350px;
+      }
+    }
+  }
+}
+@media (min-width: 1024px) {
+  #home {
+    #warrior-woman {
+      img {
+        width: 180px;
+      }
+    }
+    .entre-nous {
+      img {
+        width: 500px;
+      }
+    }
+    #man {
+      img {
+        width: 150px;
+      }
+    }
+  }
+}

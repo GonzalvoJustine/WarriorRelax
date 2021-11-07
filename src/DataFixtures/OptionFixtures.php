@@ -32,4 +32,13 @@ class OptionFixtures extends Fixture
         $manager->flush();
     }
 
+    /**
+     * @return string[]
+     */
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class
+        ];
+    }
 }

@@ -11,17 +11,17 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './js/App';
+const $ = require('jquery');
+// this "modifies" the jquery module: adding behavior to it
+// the bootstrap module doesn't export/return anything
+require('bootstrap');
 
-ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
+// or you can include specific pieces
+// require('bootstrap/js/dist/tooltip');
+// require('bootstrap/js/dist/popover');
 
-/*import Swiper, { Navigation, Pagination } from 'swiper';
+$(document).ready(function() {
+    $('[data-toggle="popover"]');
+});
 
-new Swiper('.my-swiper', {
-    // pass modules here
-    modules: [Navigation, Pagination],
-    // ...
-});*/
+//import './js/components/Domains.js';

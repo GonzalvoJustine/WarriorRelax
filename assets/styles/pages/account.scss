@@ -1,0 +1,111 @@
+label {
+  display: none;
+  &.label-true {
+    display: block;
+  }
+}
+input, select {
+  background: #00144D99!important;
+  border: 1px solid #ffffff!important;
+  border-radius: 0!important;
+  margin-bottom: .75rem!important;
+  padding: 1rem!important;
+  text-align: center;
+  &:focus-visible {
+    background: #00144D99;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    opacity: 1;
+  }
+  &::placeholder {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #ffffff!important;
+    opacity: 50%!important;
+    text-align: center;
+  }
+  option {
+    color: #ffffff;
+    opacity: 50%;
+  }
+}
+
+#account {
+  text-align: center;
+  margin-bottom: 2rem;
+  h2.form-account {
+    text-decoration: underline;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    &.first {
+      margin-top: 0;
+    }
+  }
+  .forget-pwd {
+    margin-top: 1.5rem;
+  }
+  .form-register {
+    div:last-of-type {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: baseline;
+      justify-content: center;
+    }
+  }
+}
+
+#profil {
+  #profilTwo {
+    .accordion-item {
+      background: transparent;
+      border: 1px solid #ffffff;
+    }
+  }
+  h2 {
+    button {
+      text-transform: uppercase;
+      color: #98a8bf;
+      i {
+        font-size: 1.75rem;
+        padding-right: 1rem;
+      }
+    }
+    .accordion-button:not(.collapsed) {
+      color: $secondary;
+    }
+  }
+}
+
+@media (min-width: 320px) {
+  #account {
+    .label-true {
+      padding-left: 1rem;
+    }
+  }
+}
+@media (min-width: 768px) {
+  #account {
+    h2.form-account {
+      margin-top: 0;
+    }
+    .connexion, .register {
+      margin-top: 2rem;
+    }
+  }
+}
+@media (min-width: 1024px) {
+  #account {
+    .connexion {
+      padding-right: 4rem;
+    }
+    .register {
+      padding-left: 4rem;
+    }
+    .connexion, .register {
+      margin-top: 3rem;
+    }
+    .forget-pwd {
+      text-align: end;
+    }
+  }
+}
