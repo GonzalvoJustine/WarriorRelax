@@ -1,0 +1,41 @@
+<div id="navigation" class="bg-primary">
+    <nav class="nav">
+        <a class="nav-link {% if app.request.get('_route') == 'app_home' %}active{% endif %}" aria-current="page" href="{{ path('app_home') }}">
+            <div class="menu">
+                <i class="fas fa-home"></i>
+                <div class="mobile">
+                    Accueil
+                </div>
+            </div>
+            <div class="bordure-pink"></div>
+        </a>
+        <a class="nav-link {% if app.request.get('_route') == 'domain_index' %}active{% endif %}" href="{{ path('domain_index') }}">
+            <div class="menu">
+                <i class="fas fa-child"></i>
+                <div class="mobile">
+                    Séances
+                </div>
+            </div>
+            <div class="bordure-pink"></div>
+        </a>
+        <a class="nav-link {% if app.request.get('_route') == 'category_others' %}active{% endif %}" href="{{ path('category_others') }}">
+            <div class="menu">
+                <i class="fas fa-heartbeat"></i>
+                <div class="mobile">
+                    Séances complètes
+                </div>
+            </div>
+            <div class="bordure-pink"></div>
+        </a>
+        <a class="nav-link {% if app.request.get('_route') == 'app_account_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
+            <div class="menu">
+                <i class="fas fa-user-cog"></i>
+                <div class="mobile">
+                    Mon compte
+                </div>
+            </div>
+            <div class="bordure-pink"></div>
+        </a>
+    </nav>
+    <div class="bordure"></div>
+</div>

@@ -53,7 +53,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/ohters', name: 'category_others', methods: ['GET'])]
+    #[Route('/others', name: 'category_others', methods: ['GET'])]
     public function others(Category $category): Response
     {
         return $this->render('test/index.html.twig', [

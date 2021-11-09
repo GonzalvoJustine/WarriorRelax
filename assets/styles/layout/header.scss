@@ -1,7 +1,15 @@
+#header {
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+}
+
 header {
-  margin-top: 1rem;
   display: flex;
   justify-content: center;
+  a {
+    margin-top: 1rem;
+  }
   img.logo_mobile {
     display: block;
   }
@@ -11,6 +19,9 @@ header {
 }
 
 @media (min-width: 768px) {
+  #header {
+    background-size: initial;
+  }
   header {
     img.logo {
       display: block;
@@ -18,5 +29,14 @@ header {
     img.logo_mobile {
       display: none;
     }
+  }
+}
+
+@media (min-width: 1024px) {
+  #header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-position: initial;
   }
 }

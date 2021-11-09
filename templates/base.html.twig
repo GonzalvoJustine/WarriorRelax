@@ -23,7 +23,12 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'layout/header.html.twig' %}
+        <div id="header" style="background-image:url('{{ asset('build/images/decoration/deco_header.svg') }}')">
+            {% include 'layout/header.html.twig' %}
+
+            {% include 'layout/navigation.html.twig' %}
+        </div>
+
         {% block body %}{% endblock %}
     </body>
 </html>

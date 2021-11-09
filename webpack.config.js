@@ -7,7 +7,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    .enableReactPreset()
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath('/build')
+    // only needed for CDN's or sub-directory deploy
+    //.setManifestKeyPrefix('build/')
+
     /*
      * ENTRY CONFIG
      *
@@ -15,13 +21,9 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-
-    // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
-    // public path used by the web server to access the output path
-    .setPublicPath('/build')
-    // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
+    .addEntry('nav', './assets/js/components/Nav.js')
+    .addEntry('domains', './assets/js/components/Domains.js')
+    .addEntry('categories', './assets/js/components/Categories.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -61,6 +63,9 @@ Encore
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
+
+    // uncomment if you use React
+    .enableReactPreset()
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
