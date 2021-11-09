@@ -57,10 +57,7 @@ button {
   padding: .5rem;
   margin-top: 1rem;
   margin-bottom: 2.5rem;
-  font-size: 1.75rem;
-  &.desktop {
-    display: none;
-  }
+  font-size: 1.5rem;
 }
 .bandeau-title {
   background: #00144D99;
@@ -105,8 +102,8 @@ button {
 }
 
 @media (min-width: 1024px) {
-  .bandeau.desktop {
-    display: block;
+  .bandeau {
+    font-size: 1.75rem;
   }
   .btn-white {
     display: inline-flex;

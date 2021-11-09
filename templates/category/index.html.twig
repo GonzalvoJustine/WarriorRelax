@@ -4,18 +4,34 @@
 
 {% block body %}
 
-    {#<div id="categories"></div>#}
+    <h1 class="bandeau">Choissisez d'autres séances</h1>
 
-    {% for exercise in exercises %}
-
-        <a href="{{ path('exercise_show', {'id': exercise.id}) }}">
-            <img src="{{ exercise.image }}" alt="séances" width="300" height="300">
-            {{ exercise.title }}
+    <div class="container">
+        <div id="category_others" class="row">
+            <div class="col-12 col-md-6">
+                <a href="">
+                    <div id="chooseOne">
+                        <h2 class="bandeau-title">Les séances complètes</h2>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6">
+                <a href="">
+                    <div id="chooseTwo">
+                        <h2 class="bandeau-title">Les séances des autres</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <a href="" class="btn btn-white">
+            Autres choix
+            <i class="far fa-caret-square-right"></i>
         </a>
 
-    {% else %}
-        <p>Page non trouvée</p>
-    {% endfor %}
+        <a href="{{ path('app_account_login') }}" class="btn btn-white">
+            Créer votre compte
+            <i class="far fa-caret-square-right"></i>
+        </a>
+    </div>
 
-    <a href="{{ path('category_new') }}">Create new</a>
 {% endblock %}
