@@ -22,6 +22,31 @@ a.nav-item, a {
   text-decoration: none;
 }
 
+.alert-info {
+  background-color: #00144D99;
+  color: #ffffff;
+  a:hover {
+    color: $primary;
+    transition-duration: 500ms;
+  }
+}
+
+// Font awesome on button
+//----------------------------------------------------------------------------------------------------------------------
+[class^="btn-fa-"]:before, [class*=" btn-fa-"]:before, [class^="btn-fa-"]:after, [class*=" btn-fa-"]:after {
+  font-family: "Font Awesome 5 Free";
+  padding-right: .5rem;
+  font-size: 1.25rem;
+}
+.btn-fa-circles:before{
+  content: '\f057';
+}
+.btn-fa-square:after{
+  content: '\f152';
+  padding-left: 1rem;
+  font-size: 1.75rem;
+}
+
 //Button
 //----------------------------------------------------------------------------------------------------------------------
 .btn-white {

@@ -4,20 +4,30 @@
 
 {% block body %}
 
-    {% for category in categories %}
+    <h1 class="bandeau">{{ domain.title }}</h1>
 
-        <a href="{{ path('category_show', {'id': category.id}) }}">
-            <img src="{{ category.image }}" alt="séances" width="300" height="300">
-            {{ category.title }}
-        </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for category in categories %}
 
-    {% else %}
-        <p>Page non trouvée</p>
-    {% endfor %}
+                    <a href="{{ path('category_show', {'id': category.id}) }}">
+                        <img src="{{ category.image }}" alt="séances" width="300" height="300">
+                        {{ category.title }}
+                    </a>
 
-    <a href="{{ path('domain_index') }}">back to list</a>
+                {% else %}
+                    <p>Page non trouvée</p>
+                {% endfor %}
 
-    <a href="{{ path('domain_edit', {'id': domain.id}) }}">edit</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('domain_edit', {'id': domain.id}) }}">edit</a>
 
-    {{ include('domain/_delete_form.html.twig') }}
+                    {{ include('domain/_delete_form.html.twig') }}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

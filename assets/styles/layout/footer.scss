@@ -41,6 +41,11 @@ footer {
       .nav {
         justify-content: space-between;
       }
+      .copyright {
+        .copy{
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }
@@ -53,7 +58,7 @@ footer {
       }
       .copyright {
         text-align: left;
-        padding-top: 1rem;
+        padding-top: 2rem;
         .copy span {
           padding-left: 1rem;
         }

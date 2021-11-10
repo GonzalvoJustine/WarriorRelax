@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+
+    <h1 class="bandeau">Ma séance</h1>
+
+    <div id="cart-page" class="container">
+        <div class="row">
+
+            {% if cart.items.count > 0 %}
+
+                <!-- List of exercises -->
+                <div class="col-12 col-md-8">
+                    {{ form_start(form) }}
+                        <div class="card-header d-flex">
+                            <h2 class="h5 text-white">Mes exercices</h2>
+                            <div class="ml-auto mobile">
+                                {{ form_widget(form.save) }}
+                                {{ form_widget(form.clear) }}
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for item in form.items %}
+                                <li class="list-group-item d-flex">
+                                    <div class="cart-img">
+                                        <img src="{{ item.vars.data.exercise.media }}" alt={{ item.vars.data.exercise.title }} width={{ 50 }}>
+                                    </div>
+                                    <div class="bordure-right"></div>
+                                    <div class="block-content">
+                                        <h3 class="mt-0 mb-0 h5">{{ item.vars.data.exercise.title }}</h3>
+                                        <small class="mobile">{{ item.vars.data.exercise.description[:50] }}...</small>
+                                        <div class="form-inline mt-2">
+                                            <div class="form-group mb-0">
+                                                {{ form_widget(item.quantity, {
+                                                    'attr': {
+                                                        'class': 'form-control form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid')
+                                                    }
+                                                }) }}
+                                                {{ form_widget(item.remove) }}
+
+                                                <div class="invalid-feedback">
+                                                    {{ form_errors(item.quantity) }}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {{ form_end(form) }}
+                </div>
+                <!-- Summary -->
+
+                <div class="col-12 col-md-4 mobile">
+                    <div class="card bg-transparent">
+                        <h5 class="card-header d-flex text-white">Total</h5>
+                        <div class="card-body bg-white">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div><b>Exercices</b></div>
+                                    <span><b>{#{{ cart.total }} €#}</b></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div><b>Temps</b></div>
+                                    <span><b>{#{{ cart.total }} €#}</b></span>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-white w-100">
+                                Lancer
+                                <i class="far fa-play-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    Ta séance est vide. Voir <a href="{{ path('domain_index') }}">la liste des domaines</a>.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="launch" class="bg-secondary">
+        <div class="link">
+            <i class="fas fa-cloud"></i>
+            Enregistrer
+        </div>
+        <div class="link">
+            <div class="content">
+                10
+            </div>
+            Exercices
+        </div>
+        <div class="link">
+            <div class="content">
+                15 min
+            </div>
+            Temps
+        </div>
+        <div class="link">
+            <i class="far fa-play-circle"></i>
+            Lancer
+        </div>
+    </div>
+
+{% endblock %}

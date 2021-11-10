@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Exercise;
+use App\Form\AddToCartType;
 use App\Form\ExerciseType;
+use App\Manager\CartManager;
 use App\Repository\ExerciseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +23,7 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'exercise_new', methods: ['GET','POST'])]
+    /*#[Route('/new', name: 'exercise_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $exercise = new Exercise();
@@ -40,17 +42,36 @@ class ExerciseController extends AbstractController
             'exercise' => $exercise,
             'form' => $form,
         ]);
-    }
+    }*/
 
-    #[Route('/{id}', name: 'exercise_show', methods: ['GET'])]
-    public function show(Exercise $exercise): Response
+    #[Route('/{id}', name: 'exercise_show', methods: ['GET','POST'])]
+    public function show(Exercise $exercise, Request $request, CartManager $cartManager): Response
     {
+        $form = $this->createForm(AddToCartType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $item = $form->getData();
+            $item->setExercise($exercise);
+
+            $cart = $cartManager->getCurrentCart();
+            $cart
+                ->addItem($item)
+                ->setUpdatedAt(new \DateTime());
+
+            $cartManager->save($cart);
+
+            return $this->redirectToRoute('app_cart', ['id' => $exercise->getId()]);
+        }
+
         return $this->render('exercise/show.html.twig', [
             'exercise' => $exercise,
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'exercise_edit', methods: ['GET','POST'])]
+    /*#[Route('/{id}/edit', name: 'exercise_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Exercise $exercise): Response
     {
         $form = $this->createForm(ExerciseType::class, $exercise);
@@ -66,7 +87,7 @@ class ExerciseController extends AbstractController
             'exercise' => $exercise,
             'form' => $form,
         ]);
-    }
+    }*/
 
     #[Route('/{id}', name: 'exercise_delete', methods: ['POST'])]
     public function delete(Request $request, Exercise $exercise): Response

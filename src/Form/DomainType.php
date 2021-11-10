@@ -14,9 +14,6 @@ class DomainType extends AbstractType
         $builder
             ->add('title')
             ->add('image')
-            ->add('categories')
-            ->add('exercises')
-            ->add('sessions')
         ;
     }
 

@@ -4,24 +4,26 @@
 
 {% block body %}
 
-    <h1>Formulaire de contact :</h1>
+    <h1 class="bandeau">Nous contacter</h1>
 
-    {% include '_partials/_flashbag.html.twig' %}
+    <div class="container">
+        <div id="exercise" class="row">
+            <div class="col-12 text-center">
 
-    <div class="col-sm-12">
-        <div class="form-group">
-            {{ form_start(form) }}
-            {{ form_row(form.nom) }}
+                {% include '_partials/_flashbag.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.message) }}
+
+                    <button class="btn btn-white" type="submit">
+                        Envoyer ma demande
+                        <i class="far fa-caret-square-right"></i>
+                    </button>
+                {{ form_end(form) }}
+
+            </div>
         </div>
-        <div class="form-group">
-            {{ form_row(form.email) }}
-        </div>
-        <div class="form-group">
-            {{ form_row(form.message) }}
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5">
-        </div>
-        {{ form_end(form) }}
     </div>
+
 {% endblock %}

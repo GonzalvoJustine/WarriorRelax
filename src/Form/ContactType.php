@@ -19,7 +19,8 @@ class ContactType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Nom et prénom"
+                    'placeholder' => "Nom et prénom",
+                    'class' => 'form-control'
                 ],
                 'required' => true,
                 'constraints' =>
@@ -31,7 +32,8 @@ class ContactType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'autofocus' => true,
-                    'placeholder' => "Email"
+                    'placeholder' => "Email",
+                    'class' => 'form-control'
                 ],
                 'required' => true,
                 'constraints' =>
@@ -43,7 +45,8 @@ class ContactType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'rows' => 6,
-                    'placeholder' => "Message"
+                    'placeholder' => "Message",
+                    'class' => 'form-control'
                 ],
             ])
         ;

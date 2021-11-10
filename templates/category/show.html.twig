@@ -4,26 +4,30 @@
 
 {% block body %}
 
-    {#<div id="categories"></div>#}
+    <h1 class="bandeau">{{ category.title }}</h1>
 
-    {% for exercise in exercises %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for exercise in exercises %}
 
-        <a href="{{ path('exercise_show', {'id': exercise.id}) }}">
-            <img src="{{ exercise.image }}" alt="séances" width="300" height="300">
-            {{ exercise.title }}
-            {{ exercise.description }}
-            {{ exercise.indication }}
-        </a>
+                    <a href="{{ path('exercise_show', {'id': exercise.id}) }}">
+                        <img src="{{ exercise.image }}" alt="séances" width="300" height="300">
+                        {{ exercise.title }}
+                    </a>
 
-    {% else %}
-        <p>Page non trouvée</p>
-    {% endfor %}
+                {% else %}
+                    <p>Page non trouvée</p>
+                {% endfor %}
 
-    <a href="{{ path('category_new') }}">Create new</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
 
-    <a href="{{ path('category_index') }}">back to list</a>
+                    {{ include('category/_delete_form.html.twig') }}
+                {% endif %}
 
-    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+            </div>
+        </div>
+    </div>
 
-    {{ include('category/_delete_form.html.twig') }}
 {% endblock %}

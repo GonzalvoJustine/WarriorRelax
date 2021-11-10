@@ -11,7 +11,7 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'contact')]
+    #[Route('/contact', name: 'app_contact')]
     public function index(Request $request, MailerInterface $mailer)
     {
         $form = $this->createForm(ContactType::class);
