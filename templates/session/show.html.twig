@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+
+    <h1 class="bandeau">Exercice n°1</h1>
+
+    <div class="container">
+        <div id="session" class="row">
+            <div class="col-12">
+                {# Media #}
+                <div class="session-img">
+                    <img src="{{ asset('build/images/home/warrior.svg') }}" alt="" width="150">
+                </div>
+                
+                <div class="block-content">
+                    <p><span>Préparez vous</span> la séance va se lancer</p>
+                </div>
+
+                {# Timer #}
+                <div class="timer">
+                    <span>05</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

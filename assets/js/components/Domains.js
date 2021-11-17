@@ -15,8 +15,8 @@ export default function Domains() {
         className: "end",
         centerMode: true,
         infinite: true,
-        centerPadding: "60px",
         speed: 500,
+        centerPadding: "0",
         responsive: [
             {
                 breakpoint: 1440,
@@ -24,7 +24,6 @@ export default function Domains() {
                     slidesToShow: 3,
                     slidesToScroll: 3,
                     infinite: true,
-                    dots: true
                 }
             },
             {
@@ -33,7 +32,6 @@ export default function Domains() {
                     slidesToShow: 2,
                     slidesToScroll: 2,
                     infinite: true,
-                    dots: true
                 }
             },
             {
@@ -73,12 +71,12 @@ export default function Domains() {
                     <div className="col-12">
                         <Slider {...params}>
                             {reponses.map((domain, index) => (
-                                <div key={index}>
-                                    <a href={domain.categories}>
-                                        <div className="slider-img">
-                                            <img src={domain.image} alt="" width="300" height="235"/>
+                                <div className="slider" key={index}>
+                                    <a href={domain.id}>
+                                        <div id="slider-img">
+                                            <img src={domain.image} alt={domain.title} width="300" height="235"/>
                                         </div>
-                                        <div className="col-md-6 offset-md-3 my-auto text-center content bandeau-title">
+                                        <div className="text-center content bandeau-title-slider">
                                             <h2 className="text-white">{domain.title}</h2>
                                         </div>
                                     </a>

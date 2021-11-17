@@ -14,7 +14,9 @@
     a.nav-link {
       color: #ECECEC;
       font-size: 1.75rem;
-
+      &.disabled {
+        color: #6c757d;
+      }
       .mobile {
         display: none;
       }
@@ -44,6 +46,43 @@
     border-bottom: 4px solid #ffffff!important;
     width: 175px;
     border-radius: 2rem;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .animation {
+      width: 25px;
+      height: 30px;
+      position: relative;
+      #first, #second {
+        position: absolute;
+        transition: 0.4s;
+      }
+      #first {
+        &.play {
+          width: 25px;
+          height: 30px;
+          border-left: 25px solid #00144D;
+          border-top: 15px solid transparent;
+          border-bottom: 15px solid transparent;
+        }
+        &.pause {
+          width: 25px;
+          height: 30px;
+          border-left: 10px solid #00144D99;
+          border-top: 0 solid transparent;
+          border-bottom: 0 solid transparent;
+        }
+      }
+      #second.pause {
+        height: 30px;
+        margin-left: 15px;
+        border-left: 10px solid #00144D99;
+        border-top: 0 solid transparent;
+        border-bottom: 0 solid transparent;
+      }
+    }
   }
 }
 

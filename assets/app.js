@@ -24,5 +24,14 @@ $(document).ready(function() {
     $('[data-toggle="popover"]');
 });
 
+$(".animation").click(function(){
+    $("#first").toggleClass("pause play");
+    $("#second").toggleClass("pause play");
+});
+$(".dynamic").click(function(){
+    $("#vol-one").toggleClass("on off");
+    $("#vol-two").toggleClass("on off");
+});
+
 //import './js/components/Nav.js';
-//import './js/components/Domains.js';
+import './js/components/Domains.js';

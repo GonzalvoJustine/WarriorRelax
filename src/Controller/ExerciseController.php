@@ -16,9 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ExerciseController extends AbstractController
 {
     #[Route('/', name: 'exercise_index', methods: ['GET'])]
-    public function index(ExerciseRepository $exerciseRepository): Response
+    public function index(CartManager $cartManager, ExerciseRepository $exerciseRepository): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         return $this->render('exercise/index.html.twig', [
+            'cart' => $cart,
             'exercises' => $exerciseRepository->findAll(),
         ]);
     }
@@ -50,22 +53,25 @@ class ExerciseController extends AbstractController
         $form = $this->createForm(AddToCartType::class);
 
         $form->handleRequest($request);
+        $cart = $cartManager->getCurrentCart();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $item = $form->getData();
             $item->setExercise($exercise);
 
-            $cart = $cartManager->getCurrentCart();
             $cart
                 ->addItem($item)
-                ->setUpdatedAt(new \DateTime());
+                ->setUpdatedAt(new \DateTime())
+            ;
 
             $cartManager->save($cart);
 
-            return $this->redirectToRoute('app_cart', ['id' => $exercise->getId()]);
+            return $this->redirectToRoute('exercise_show', ['id' => $exercise->getId()]);
         }
 
         return $this->render('exercise/show.html.twig', [
+            'cart' => $cart,
             'exercise' => $exercise,
             'form' => $form->createView()
         ]);

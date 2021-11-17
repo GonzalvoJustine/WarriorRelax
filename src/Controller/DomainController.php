@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Manager\CartManager;
 use App\Entity\Domain;
 use App\Form\DomainType;
 use App\Repository\DomainRepository;
@@ -14,9 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DomainController extends AbstractController
 {
     #[Route('/', name: 'domain_index', methods: ['GET'])]
-    public function index(DomainRepository $domainRepository): Response
+    public function index(CartManager $cartManager, DomainRepository $domainRepository): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         return $this->render('domain/index.html.twig', [
+            'cart' => $cart,
             'domains' => $domainRepository->findAll(),
         ]);
     }
@@ -43,11 +47,14 @@ class DomainController extends AbstractController
     }
 
     #[Route('/{id}', name: 'domain_show', methods: ['GET'])]
-    public function show(Domain $domain): Response
+    public function show(CartManager $cartManager, Domain $domain): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $categories = $domain->getCategories();
 
         return $this->render('domain/show.html.twig', [
+            'cart' => $cart,
             'domain' => $domain,
             'categories' => $categories
         ]);

@@ -23,12 +23,15 @@
         {% endblock %}
     </head>
     <body>
-        <div id="header" style="background-image:url('{{ asset('build/images/decoration/deco_header.svg') }}')">
+        <div id="header" class="{% if app.request.get('_route') == 'session_show' %}session-show{% endif %}"
+             style="background-image:url('{{ asset('build/images/decoration/deco_header.svg') }}')">
             <div id="cart">
-                <a href="{{ path('app_cart') }}" id="link-cart" class="btn">
+                <a href="{{ path('session_index') }}" id="link-cart" class="btn">
                     <i class="fas fa-running"></i>
-                    <div class="mobile">
-                        Panier
+                    <div>
+                        {% if cart.items.count > 0 %}
+                            ({{ cart.total }})
+                        {% endif %}
                     </div>
                 </a>
             </div>

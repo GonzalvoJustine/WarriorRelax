@@ -38,7 +38,7 @@ class Session
     private ?string $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     #[Groups(['read:User', 'read:Session:collection', 'read:Program', 'read:Category', 'read:SessionHistory'])]
     private ?string $image;

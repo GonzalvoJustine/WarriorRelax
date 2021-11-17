@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangeCurrentPasswordFormType;
 use App\Form\UserFormType;
+use App\Manager\CartManager;
 use App\Model\ChangePassword;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
@@ -30,8 +31,10 @@ class AccountController extends AbstractController
     }
 
     #[Route('/', name: '_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(CartManager $cartManager, AuthenticationUtils $authenticationUtils): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         if ($this->getUser()) {
             return $this->redirectToRoute('app_profil');
         }
@@ -42,6 +45,7 @@ class AccountController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('account/index.html.twig', [
+            'cart' => $cart,
             'last_username' => $lastUsername,
             'error' => $error
         ]);
@@ -90,8 +94,10 @@ class AccountController extends AbstractController
     }
 
     #[Route('/mon-espace', name: '_profil')]
-    public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function profil(CartManager $cartManager, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
@@ -146,6 +152,7 @@ class AccountController extends AbstractController
         }
 
         return $this->render('account/profil.html.twig', [
+            'cart' => $cart,
             'form_info' => $form->createView(),
             'form'      => $formPwd->createView(),
             'user'      => $user

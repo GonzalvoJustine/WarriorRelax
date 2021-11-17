@@ -91,15 +91,6 @@ class Exercise
     private Collection $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="exercises")
-     */
-    #[
-        Groups(['read:Exercise:item']),
-        Valid()
-    ]
-    private Collection $carts;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="exercises")
      */
     #[
@@ -259,36 +250,6 @@ class Exercise
     {
         if ($this->categories->removeElement($category)) {
             $category->removeExercise($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Cart[]
-     */
-    public function getCarts(): Collection
-    {
-        return $this->carts;
-    }
-
-    public function addCart(Cart $cart): self
-    {
-        if (!$this->carts->contains($cart)) {
-            $this->carts[] = $cart;
-            $cart->setExercises($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): self
-    {
-        if ($this->carts->removeElement($cart)) {
-            // set the owning side to null (unless already changed)
-            if ($cart->getExercises() === $this) {
-                $cart->setExercises(null);
-            }
         }
 
         return $this;

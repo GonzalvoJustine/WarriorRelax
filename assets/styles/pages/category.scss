@@ -3,7 +3,10 @@
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
-    height: 250px;
+    height: 200px;
+    background-size: contain;
+    position: relative;
+    margin-top: 1rem;
   }
   #chooseOne {
     background-image: url("../../images/category_others/chooseOne.png");
@@ -14,33 +17,73 @@
 }
 
 .slick-slide {
-  &:not(.slick-current) img {
-    filter: grayscale(100%)!important;
+  &:not(.slick-center) {
+    .slider {
+      z-index: 0;
+    }
+    img {
+      filter: grayscale(100%)!important;
+      -ms-transform: scale(.9)!important;
+      transform: scale(.9)!important;
+      transition-duration: 500ms;
+      width: 100%!important;
+    }
+    .content {
+      -ms-transform: scale(.9)!important;
+      transform: scale(.9)!important;
+      transition-duration: 500ms;
+    }
   }
-  &.slick-center .slider-img img {
-    -ms-transform: scale(1.5)!important;
-    transform: scale(1.5)!important;
+  .slider {
+    z-index: 5;
+    position: relative;
+    margin-top: -2rem;
+    margin-bottom: -2rem;
+    .content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+    }
   }
-  .slide-img img {
-    width: 300px;
-    height: 235px;
+  img {
+    width: 100%!important;
+    height: auto;
   }
 }
 
 @media (min-width: 768px) {
   .slick-slide {
-    img {
-      width: 400px;
-      height: auto;
+    &:not(.slick-center) {
+      img {
+        -ms-transform: scale(.8)!important;
+        transform: scale(.8)!important;
+        transition-duration: 500ms;
+      }
+      .content {
+        -ms-transform: scale(.8)!important;
+        transform: scale(.8)!important;
+        transition-duration: 500ms;
+      }
+    }
+  }
+  img {
+    padding-left: 1rem!important;
+    padding-right: 1rem!important;
+  }
+  .slider {
+    .content {
+      margin-left: 1rem!important;
+      margin-right: 1rem!important;
     }
   }
 }
 
 @media (min-width: 1024px) {
-  .slick-slide {
-    img {
-      width: 400px;
-      height: auto;
+  #category_others {
+    #chooseOne, #chooseTwo {
+      height: 325px;
+      background-size: cover;
     }
   }
 }

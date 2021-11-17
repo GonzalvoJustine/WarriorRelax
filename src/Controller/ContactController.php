@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Manager\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Email;
@@ -12,8 +13,10 @@ use Symfony\Component\Mailer\MailerInterface;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, MailerInterface $mailer)
+    public function index(CartManager $cartManager, Request $request, MailerInterface $mailer)
     {
+        $cart = $cartManager->getCurrentCart();
+
         $form = $this->createForm(ContactType::class);
 
         $form->handleRequest($request);
@@ -38,6 +41,7 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('contact');
         }
         return $this->render('contact/index.html.twig', [
+            'cart' => $cart,
             'form' => $form->createView()
         ]);
     }

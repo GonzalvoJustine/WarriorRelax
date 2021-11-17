@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Manager\CartManager;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'category_index', methods: ['GET'])]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CartManager $cartManager, CategoryRepository $categoryRepository): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'cart' => $cart
         ]);
     }
 
@@ -43,11 +46,14 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'category_show', methods: ['GET'])]
-    public function show(Category $category): Response
+    public function show(CartManager $cartManager, Category $category): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $exercises = $category->getExercises();
 
         return $this->render('category/show.html.twig', [
+            'cart' => $cart,
             'category' => $category,
             'exercises' => $exercises
         ]);

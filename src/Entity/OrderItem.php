@@ -37,6 +37,11 @@ class OrderItem
      */
     private $orderRef;
 
+    /**
+     * @ORM\Column(type="time", nullable=true)
+     */
+    private $time;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,5 +93,27 @@ class OrderItem
         $this->orderRef = $orderRef;
 
         return $this;
+    }
+
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->time;
+    }
+
+    public function setTime(?\DateTimeInterface $time): self
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->getQuantity();
+    }
+
+    public function getTotalTime(): ?\DateTimeInterface
+    {
+        return $this->getTime();
     }
 }

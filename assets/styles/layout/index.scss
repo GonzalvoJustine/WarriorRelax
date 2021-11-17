@@ -4,7 +4,7 @@ body {
   font-size: 16px;
 }
 
-h1, h2, h3, h4, h5, h6, a {
+h1, h2, h3, h4, h5, h6, a, #session {
   font-family: 'Calistoga', cursive;
 }
 
@@ -31,6 +31,10 @@ a.nav-item, a {
   }
 }
 
+#launch .link a {
+  font-family: 'Lora', serif;
+}
+
 // Font awesome on button
 //----------------------------------------------------------------------------------------------------------------------
 [class^="btn-fa-"]:before, [class*=" btn-fa-"]:before, [class^="btn-fa-"]:after, [class*=" btn-fa-"]:after {
@@ -43,6 +47,12 @@ a.nav-item, a {
 }
 .btn-fa-square:after{
   content: '\f152';
+  padding-left: 1rem;
+  font-size: 1.75rem;
+}
+
+.btn-fa-play:after{
+  content: '\f144';
   padding-left: 1rem;
   font-size: 1.75rem;
 }
@@ -88,8 +98,18 @@ button {
   background: #00144D99;
   display: flex;
   justify-content: center;
+  color: #ffffff;
+  padding: .5rem;
+  font-size: 1.5rem;
+  position: absolute;
   left: 0;
   right: 0;
+  top: 50%;
+}
+.bandeau-title-slider {
+  background: #00144D99;
+  display: flex;
+  justify-content: center;
   color: #ffffff;
   padding: .5rem;
   font-size: 1.5rem;
@@ -129,6 +149,10 @@ button {
 @media (min-width: 1024px) {
   .bandeau {
     font-size: 1.75rem;
+  }
+  .bandeau-title-slider {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
   .btn-white {
     display: inline-flex;

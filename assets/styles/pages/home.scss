@@ -1,5 +1,11 @@
 #home {
   text-align: center;
+  .content p {
+    margin-bottom: 1rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
   .timer {
     margin-top: 2rem;
     text-align: right;
@@ -54,6 +60,9 @@
 }
 @media (min-width: 1024px) {
   #home {
+    .content p {
+      margin-bottom: 0;
+    }
     #warrior-woman {
       img {
         width: 180px;

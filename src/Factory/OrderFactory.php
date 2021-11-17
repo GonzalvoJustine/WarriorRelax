@@ -41,6 +41,7 @@ class OrderFactory
     {
         $item = new OrderItem();
         $item->setExercise($exercise);
+        $item->setTime(1);
         $item->setQuantity(1);
 
         return $item;

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -143,5 +144,35 @@ class Order
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * Calculates the order total.
+     *
+     * @return float
+     */
+    public function getTotal(): float
+    {
+        $total = 0;
+
+        foreach ($this->getItems() as $item) {
+            $total += $item->getTotal();
+        }
+
+        return $total;
+    }
+
+    public function getTime()
+    {
+        $totalmin = 0;
+
+        foreach ($this->getItems() as $item) {
+            $arr_temps = explode(':', date_format($item->getTotalTime(),'i:s'));
+            $totalmin += (60*$arr_temps[0])+$arr_temps[1];
+        }
+
+        $time = str_pad(floor($totalmin/60),2,0,STR_PAD_LEFT).':'.str_pad($totalmin%60,2,0,STR_PAD_LEFT);
+
+        return $time;
     }
 }

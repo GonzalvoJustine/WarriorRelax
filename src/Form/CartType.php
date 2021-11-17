@@ -20,7 +20,7 @@ class CartType extends AbstractType
                 'entry_type' => CartItemType::class
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Sauvegarder',
+                'label' => 'Mettre à jour',
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
