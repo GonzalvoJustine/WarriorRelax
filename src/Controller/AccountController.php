@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ChangeCurrentPasswordFormType;
+use App\Form\FormtestType;
 use App\Form\UserFormType;
 use App\Manager\CartManager;
 use App\Model\ChangePassword;
@@ -20,7 +21,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-#[Route('/mon-compte', name: 'app_account')]
 class AccountController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
@@ -30,70 +30,7 @@ class AccountController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/', name: '_login')]
-    public function login(CartManager $cartManager, AuthenticationUtils $authenticationUtils): Response
-    {
-        $cart = $cartManager->getCurrentCart();
-
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_profil');
-        }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('account/index.html.twig', [
-            'cart' => $cart,
-            'last_username' => $lastUsername,
-            'error' => $error
-        ]);
-    }
-
-    #[Route('/', name: '_register')]
-    public function register(
-        Request $request,
-        EmailVerifier $emailVerifier,
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $userPasswordHasherInterface
-    ): Response
-    {
-        $user = new User();
-
-        $form = $this->createForm(RegistrationFormType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasherInterface->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('elvacosta1@gmail.com', 'Elva Costa'))
-                    ->to($user->getEmail())
-                    ->subject('Vérification de votre adresse e-mail pour activer votre compte utilisateur')
-                    ->htmlTemplate('emails/confirmation_email.html.twig')
-            );
-            $this->addFlash('success', 'Votre compte utilisateur a bien été créé, veuillez consulter vos e-mails pour l\'activer');
-
-            return $this->redirectToRoute('app_profil');
-        }
-
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/mon-espace', name: '_profil')]
+    #[Route('/mon-compte/mon-espace', name: 'app_profil')]
     public function profil(CartManager $cartManager, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $cart = $cartManager->getCurrentCart();

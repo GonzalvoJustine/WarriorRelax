@@ -32,13 +32,9 @@ input, select {
 
 #account {
   text-align: center;
+  justify-content: center;
   h2.form-account {
     text-decoration: underline;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    &.first {
-      margin-top: 0;
-    }
   }
   .forget-pwd {
     margin-top: 1.5rem;
@@ -50,6 +46,11 @@ input, select {
       align-items: baseline;
       justify-content: center;
     }
+  }
+  p {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -82,11 +83,19 @@ input, select {
     }
   }
 }
+@media (min-width: 425px) {
+  #account {
+    p {
+      flex-direction: row;
+      justify-content: center;
+      a {
+        padding-left: .5rem;
+      }
+    }
+  }
+}
 @media (min-width: 768px) {
   #account {
-    h2.form-account {
-      margin-top: 0;
-    }
     .connexion, .register {
       margin-top: 2rem;
     }

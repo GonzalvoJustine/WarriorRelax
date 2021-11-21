@@ -32,7 +32,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'autofocus' => true,
                     'placeholder' => "Pseudo",
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'required' => true,
                 'constraints' =>

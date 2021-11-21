@@ -15,12 +15,12 @@
                     <div id="second" class="play"></div>
                 </div>
             </div>
-            <a class="nav-link {% if app.request.get('_route') == 'app_account_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
+            <a class="nav-link {% if app.request.get('_route') == 'app_account' %}active{% endif %}" href="{{ path('app_account') }}">
                 <div class="menu">
                     <i class="fas fa-step-forward"></i>
                 </div>
             </a>
-            {#<a class="nav-link {% if app.request.get('_route') == 'app_account_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
+            {#<a class="nav-link {% if app.request.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
                 <div class="menu">
                     <i class="fas fa-ellipsis-v"></i>
                 </div>
@@ -58,15 +58,28 @@
             </div>
             <div class="bordure-pink"></div>
         </a>
-        <a class="nav-link {% if app.request.get('_route') == 'app_account_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
-            <div class="menu">
-                <i class="fas fa-user-cog"></i>
-                <div class="mobile">
-                    Mon compte
+        {% if app.user %}
+            <a class="nav-link {% if app.request.get('_route') == 'app_profil' %}active{% endif %}" href="{{ path('app_profil') }}">
+                <div class="menu">
+                    <i class="fas fa-user-cog"></i>
+                    <div class="mobile">
+                        Mon espace
+                    </div>
                 </div>
-            </div>
-            <div class="bordure-pink"></div>
-        </a>
+                <div class="bordure-pink"></div>
+            </a>
+        {% else %}
+            <a class="nav-link {% if app.request.get('_route') == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">
+                <div class="menu">
+                    <i class="fas fa-user-cog"></i>
+                    <div class="mobile">
+                        Mon compte
+                    </div>
+                </div>
+                <div class="bordure-pink"></div>
+            </a>
+        {% endif %}
+
     </nav>
     <div class="bordure"></div>
 </div>

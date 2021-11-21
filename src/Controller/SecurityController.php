@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Form\UserFormType;
+use App\Manager\CartManager;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -18,6 +19,26 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    #[Route('/connexion', name: 'app_login')]
+    public function login(CartManager $cartManager, AuthenticationUtils $authenticationUtils): Response
+    {
+        $cart = $cartManager->getCurrentCart();
+
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_profil');
+        }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', [
+            'cart' => $cart,
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
+    }
 
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void

@@ -21,7 +21,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('WarriorRelax');
+            ->setTitle('WarriorRelax-v2');
     }
 
     public function configureMenuItems(): iterable
