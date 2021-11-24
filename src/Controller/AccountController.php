@@ -30,7 +30,7 @@ class AccountController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/mon-compte/mon-espace', name: 'app_profil')]
+    #[Route('/mon-compte', name: 'app_profil')]
     public function profil(CartManager $cartManager, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $cart = $cartManager->getCurrentCart();

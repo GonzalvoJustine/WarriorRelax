@@ -73,15 +73,6 @@ class Exercise
     private ?User $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Session::class, mappedBy="exercises")
-     */
-    #[
-        Groups(['read:Exercise:item']),
-        Valid()
-    ]
-    private Collection $sessions;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="exercises")
      */
     #[
@@ -106,7 +97,6 @@ class Exercise
 
     public function __construct()
     {
-        $this->sessions = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->carts = new ArrayCollection();
         $this->domains = new ArrayCollection();
@@ -197,33 +187,6 @@ class Exercise
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Session[]
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
-
-    public function addSession(Session $session): self
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions[] = $session;
-            $session->addExercise($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): self
-    {
-        if ($this->sessions->removeElement($session)) {
-            $session->removeExercise($this);
-        }
 
         return $this;
     }

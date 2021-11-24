@@ -19,6 +19,12 @@
         font-size: 1.25rem;
       }
     }
+    &.exercise {
+      padding: 1rem 0;
+      p {
+        font-size: 1.25rem;
+      }
+    }
   }
   .timer {
     margin-top: 2rem;
@@ -31,4 +37,80 @@
       font-size: 1.5rem;
     }
   }
+
+  #countdown {
+    position: relative;
+    margin: auto;
+    margin-top: 2rem;
+    height: 78px;
+    width: 78px;
+    text-align: center;
+  }
+
+  #countdown-number {
+    color: #00144D;
+    display: inline-block;
+    line-height: 78px;
+    font-size: 1.5rem;
+    z-index: 50;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 78px;
+    height: 78px;
+    transform: rotateY(-180deg) rotateZ(-90deg);
+  }
+
+  svg {
+    background-color: #ffffff;
+    border-radius: 100%;
+    z-index: -1;
+    circle {
+      stroke-dasharray: 200px;
+      stroke-dashoffset: 0;
+      stroke-linecap: round;
+      stroke-width: 3px;
+      stroke: #00144D;
+      fill: none;
+      animation: countdown 5s linear infinite forwards;
+    }
+  }
+
+  @keyframes countdown {
+    from {
+      stroke-dashoffset: 20px;
+    }
+    to {
+      stroke-dashoffset: 200px;
+    }
+  }
+
+  .number-exercise {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .block-number {
+      background: #ffffff;
+      padding: .75rem 5rem;
+      border-radius: 2rem;
+      .number {
+        color: #00144D;
+        opacity: .6;
+      }
+    }
+  }
+}
+
+.hidden-launch {
+  display: none;
+  transition-duration: 350ms;
+}
+
+#break .go {
+  opacity: .6;
 }

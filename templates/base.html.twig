@@ -25,6 +25,8 @@
     <body>
         <div id="header" class="{% if app.request.get('_route') == 'session_show' %}session-show{% endif %}"
              style="background-image:url('{{ asset('build/images/decoration/deco_header.svg') }}')">
+            {% if app.request.get('_route') == 'session_show' %}
+            {% else %}
             <div id="cart">
                 <a href="{{ path('session_index') }}" id="link-cart" class="btn">
                     <i class="fas fa-running"></i>
@@ -35,6 +37,7 @@
                     </div>
                 </a>
             </div>
+            {% endif %}
 
             {% include 'layout/header.html.twig' %}
 

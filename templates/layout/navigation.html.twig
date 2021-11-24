@@ -5,20 +5,31 @@
                 <i class="fas fa-volume-mute"></i>
             </div>#}
             <a class="nav-link disabled{% if app.request.get('_route') == 'domain_index' %}active{% endif %}" href="{{ path('domain_index') }}">
-                <div class="menu">
-                    <i class="fas fa-step-backward"></i>
-                </div>
+                <i class="fas fa-step-backward"></i>
             </a>
+            {#<div class="buttons">
+                <div id="play">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div id="pause"class="d-none">
+                    <i class="fas fa-pause"></i>
+                </div>
+            </div>#}
             <div class="buttons">
-                <div class="animation">
-                    <div id="first" class="play"></div>
-                    <div id="second" class="play"></div>
+                <div id="play" class="start">
+                    <i class="fas fa-play"></i>
                 </div>
+                <div id="pause" class="d-none">
+                    <i class="fas fa-pause"></i>
+                </div>
+                {#<div class="pause-resume-cancel none">
+                    <div id="pause" class="btn pause-resume d-none">
+                        <i class="fas fa-pause"></i>
+                    </div>
+                </div>#}
             </div>
-            <a class="nav-link {% if app.request.get('_route') == 'app_account' %}active{% endif %}" href="{{ path('app_account') }}">
-                <div class="menu">
-                    <i class="fas fa-step-forward"></i>
-                </div>
+            <a class="nav-link {% if app.request.get('_route') == 'app_profil' %}active{% endif %}" href="{{ path('app_profil') }}">
+                <i class="fas fa-step-forward"></i>
             </a>
             {#<a class="nav-link {% if app.request.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
                 <div class="menu">
@@ -28,6 +39,17 @@
         </nav>
         <div class="bordure"></div>
     </div>
+    {#<div class="jumbotron text-center">
+        <div class="timer">
+            <span class="minutes">
+              00
+            </span>
+            :
+            <span class="seconds">
+              00
+            </span>
+        </div>
+    </div>#}
 {% else %}
 <div id="navigation" class="bg-primary">
     <nav class="nav">

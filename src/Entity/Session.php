@@ -59,15 +59,6 @@ class Session
     private ?User $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Exercise::class, inversedBy="sessions")
-     */
-    #[
-        Groups(['read:Session:item']),
-        Valid()
-    ]
-    private Collection $exercises;
-
-    /**
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="session")
      */
     private Collection $program;
@@ -104,12 +95,17 @@ class Session
     ]
     private Collection $domains;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=OrderItem::class, inversedBy="sessions")
+     */
+    private $orderItems;
+
     public function __construct()
     {
-        $this->exercises = new ArrayCollection();
         $this->program = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->domains = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,30 +157,6 @@ class Session
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Exercise[]
-     */
-    public function getExercises(): Collection
-    {
-        return $this->exercises;
-    }
-
-    public function addExercise(Exercise $exercise): self
-    {
-        if (!$this->exercises->contains($exercise)) {
-            $this->exercises[] = $exercise;
-        }
-
-        return $this;
-    }
-
-    public function removeExercise(Exercise $exercise): self
-    {
-        $this->exercises->removeElement($exercise);
 
         return $this;
     }
@@ -293,4 +265,29 @@ class Session
 
         return $this;
     }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        $this->orderItems->removeElement($orderItem);
+
+        return $this;
+    }
+
 }

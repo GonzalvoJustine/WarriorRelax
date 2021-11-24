@@ -1,3 +1,4 @@
+{% if app.request.get('_route') != 'session_show' %}
 <footer>
     <div class="container">
         <div id="footer" class="row">
@@ -39,4 +40,7 @@
         </div>
     </div>
 </footer>
+{% else %}
+<footer class="p-5"></footer>
+{% endif %}
 

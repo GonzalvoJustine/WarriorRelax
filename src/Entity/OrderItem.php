@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,6 +43,16 @@ class OrderItem
      * @ORM\Column(type="time", nullable=true)
      */
     private $time;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Session::class, mappedBy="orderItems")
+     */
+    private $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -115,5 +127,32 @@ class OrderItem
     public function getTotalTime(): ?\DateTimeInterface
     {
         return $this->getTime();
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->addOrderItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->removeElement($session)) {
+            $session->removeOrderItem($this);
+        }
+
+        return $this;
     }
 }

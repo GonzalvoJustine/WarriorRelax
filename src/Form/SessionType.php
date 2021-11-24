@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Exercise;
+use App\Entity\OrderItem;
 use App\Entity\Session;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,11 +22,6 @@ class SessionType extends AbstractType
                 'attr' => [
                     'placeholder' => "Donner un nom à votre séance",
                 ],
-            ])
-            ->add('exercises', EntityType::class, [
-                'class' => Exercise::class,
-                'choice_label' => 'id',
-                'multiple' => true
             ])
             ->add('launch', SubmitType::class, [
                 'label' => 'Lancer',

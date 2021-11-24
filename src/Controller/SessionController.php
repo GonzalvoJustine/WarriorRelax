@@ -9,6 +9,7 @@ use App\Entity\Session;
 use App\Form\CartType;
 use App\Form\SessionType;
 use App\Manager\CartManager;
+use App\Repository\OrderItemRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,21 +30,17 @@ class SessionController extends AbstractController
         $formSession = $this->createForm(SessionType::class, $session);
         $formSession->handleRequest($request);
 
-        $getExerciseId = $cart->getItems()->getValues();
+        $orderItems = $cart->getItems()->getValues();
 
-        $exercises = [];
-
-        foreach ($getExerciseId as $exerciseId) {
-            $exercises[] = $exerciseId->getExercise()->getId();
-        }
-        /*dd($exercises);*/
         if ($formSession->isSubmitted() && $formSession->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $session
-                ->setCreatedAt(new \DateTime())
-                /*->addExercise($exercises)*/
-            ;
+            $session->setCreatedAt(new \DateTime());
+
+            foreach ($orderItems as $orderItem) {
+                $item = $orderItem;
+                $session->addOrderItem($item);
+            }
 
             $entityManager->persist($session);
             $entityManager->flush();
@@ -75,9 +72,22 @@ class SessionController extends AbstractController
     {
         $cart = $cartManager->getCurrentCart();
 
+        $exercises = $session->getOrderItems();
+
+        foreach ($exercises as $exercise) {
+            $details = $exercise;
+            $title = $exercise->getExercise()->getTitle();
+            $media = $exercise->getExercise()->getMedia();
+            $indication = $exercise->getExercise()->getIndication();
+        }
+
         return $this->render('session/show.html.twig', [
             'cart' => $cart,
             'session' => $session,
+            'exercises' => $exercises,
+            'title' => $title,
+            'media' => $media,
+            'indication' => $indication,
         ]);
     }
 

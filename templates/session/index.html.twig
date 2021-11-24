@@ -27,13 +27,6 @@
                                     <span><b>{{ cart.time }}</b></span>
                                 </li>
                             </ul>
-                            {% for item in form.items %}
-                                {{ dump(item.vars.data.exercise.id)  }}
-                                {#{{ form_widget(item.exercises, { 'attr': {'id': 'foo'} }) }}#}
-
-                            {% endfor %}
-                            {{ form_widget(formSession.exercises) }}
-                            {{ dump(formSession) }}
                             {{ form_widget(formSession.launch) }}
                             {{ form_end(formSession) }}
                         </div>
