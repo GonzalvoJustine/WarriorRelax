@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="timer-input d-none">
+        <div class="timer-input">
             <div class="input__container">
                 <label for="inp-minute">Minutes</label>
                 <input type="text" id="inp-minute" value={{ exercise.time|date('i') }} />
@@ -92,13 +92,18 @@
 
     <div id="break" class="d-none">
         <h1 class="bandeau">Repos</h1>
+
         <div class="container">
             <div id="session" class="row">
                 <div class="col-12">
                     <div class="block-content">
-                        <p>
-                            <span>00:20</span>
-                        </p>
+                        <div class="timer__background">
+                            <div class="timer__display">
+                                <span class="display timer-minute"></span>
+                                <span class="display colon">:</span>
+                                <span class="display timer-secondes"></span>
+                            </div>
+                        </div>
                         <p class="go">
                             <i class="fas fa-arrow-right"></i>
                             Passer
@@ -108,16 +113,25 @@
                     <div class="number-exercise">
                         <div class="block-number">
                             <div class="number">
-                                {% set counter = ( counter | default(0) ) + 1 %}
 
                                 {% if cart.items.count > 0 %}
-                                    Prochain {{ counter }}/{{ cart.total }}
+                                    Prochain {{ counter + 1 }}/{{ cart.total }}
                                 {% endif %}
 
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="timer-input d-none">
+            <div class="input__container">
+                <label for="inp-timer-minute">Minutes</label>
+                <input type="text" id="inp-timer-minute" value='00' />
+            </div>
+            <div class="input__container">
+                <label for="inp-timer-seconds">Seconds</label>
+                <input type="text" id="inp-timer-seconds" value='15' />
             </div>
         </div>
     </div>

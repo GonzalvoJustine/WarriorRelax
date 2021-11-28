@@ -111,6 +111,14 @@
   transition-duration: 350ms;
 }
 
-#break .go {
-  opacity: .6;
+#break {
+  .timer__display {
+    margin-bottom: 1.25rem;
+    span {
+      font-size: 1.5rem;
+    }
+  }
+  .go {
+    opacity: .6;
+  }
 }

@@ -6,10 +6,9 @@ const btnStopElement = document.getElementById('pause');
 
 let timerTime = 0;
 
-const number = 1;
+const number = [1, 2];
+var launchExercice;
 
-var launch1 = document.getElementById('launch-' + 1);
-var launch2 = document.getElementById('launch-' + 2);
 var rest = document.getElementById('break');
 
 var countdown = "0" + 5;
@@ -19,6 +18,7 @@ countdownNumberEl.textContent = countdown;
 /******************************/
 /*        Launch timer        */
 /******************************/
+
 var timer = setInterval(function() {
     if (countdown > 0) {
         countdown = --countdown <= -1 ? 5 : countdown;
@@ -36,16 +36,22 @@ var timer = setInterval(function() {
 // getting Display minutes and seconds elements
 const disMinutes = document.querySelector(".minute");
 const disSeconds = document.querySelector(".secondes");
+const timerMinute = document.querySelector(".timer-minute");
+const timerSeconds = document.querySelector(".timer-secondes");
 
 // getting input minutes and seconds elements
 const inpMinutes = document.getElementById("inp-minute");
 const inpSeconds = document.getElementById("inp-seconds");
+const inpTimerMinutes = document.getElementById("inp-timer-minute");
+const inpTimerSeconds = document.getElementById("inp-timer-seconds");
 
 // Additional Variables
 let resume;
 
 disMinutes.innerHTML = "00";
 disSeconds.innerHTML = "00";
+timerMinute.innerHTML = "00";
+timerSeconds.innerHTML = "00";
 
 // making the timer
 let interval;
@@ -63,6 +69,8 @@ btnStartElement.addEventListener('click', startTimer = () => {
 
             textCorrection(disMinutes, minutes);
             textCorrection(disSeconds, seconds);
+            textCorrection(timerMinute, minutes);
+            textCorrection(timerSeconds, seconds);
 
             if (totalTime > 0) {
                 totalTime--;
@@ -88,14 +96,24 @@ btnStopElement.addEventListener('click', stopTimer = () => {
 
 setTimeout(function() {
     clearInterval(timer);
+
     launch.classList.add("hidden-launch");
-    launch1.classList.remove("d-none");
-    launch1.classList.add("d-block");
+
+    number.forEach(function(exercise){
+        launchExercice = document.getElementById('launch-' + exercise);
+
+        if (exercise === 1) {
+            launchExercice.classList.remove("d-none");
+            launchExercice.classList.add("d-block");
+        }
+
+    });
 
     btnStopElement.classList.remove("d-none");
     btnStartElement.classList.add("d-none");
 
     totalTime = inpMinutes.value * 60 + inpSeconds.value * 1;
+    totalTimeRest = inpTimerMinutes.value * 60 + inpTimerSeconds.value * 1;
 
     if (inpMinutes.value != "" || inpSeconds.value != "") {
 
@@ -105,14 +123,74 @@ setTimeout(function() {
 
             textCorrection(disMinutes, minutes);
             textCorrection(disSeconds, seconds);
+
             if (totalTime > 0) {
                 totalTime--;
             } else if (totalTime === 0) {
                 clearInterval(interval);
-                launch1.classList.add("d-none");
-                launch1.classList.remove("d-block");
+
+                number.forEach(function(exercise){
+                    launchExercice = document.getElementById('launch-' + exercise);
+
+                    if (exercise === 1) {
+                        launchExercice.classList.add("d-none");
+                        launchExercice.classList.remove("d-block");
+                    }
+
+                });
+
                 rest.classList.remove("d-none");
                 rest.classList.add("d-block");
+
+                if (inpTimerMinutes.value != "" || inpTimerSeconds.value != "") {
+                    intervalTimer = setInterval(() => {
+                        const minutes = Math.floor(totalTimeRest / 60);
+                        const seconds = totalTimeRest % 60;
+
+                        textCorrection(timerMinute, minutes);
+                        textCorrection(timerSeconds, seconds);
+
+                        if (totalTimeRest > 0) {
+                            totalTimeRest--;
+                        } else if (totalTimeRest === 0) {
+                            clearInterval(intervalTimer);
+
+                            rest.classList.add("d-none");
+                            rest.classList.remove("d-block");
+
+                            number.forEach(function(exercise){
+                                launchExercice = document.getElementById('launch-' + exercise);
+
+                                if (exercise === 2) {
+                                    launchExercice.classList.remove("d-none");
+                                    launchExercice.classList.add("d-block");
+                                }
+
+                            });
+
+                            totalTime = inpMinutes.value * 60 + inpSeconds.value * 1;
+
+                            if (inpMinutes.value != "" || inpSeconds.value != "") {
+
+                                intervalTwo = setInterval(() => {
+                                    const minutes = Math.floor(totalTime / 60);
+                                    const seconds = totalTime % 60;
+                                    console.log(totalTime);
+
+                                    textCorrection(disMinutes, minutes);
+                                    textCorrection(disSeconds, seconds);
+
+                                    if (totalTime > 0) {
+                                        totalTime--;
+                                    } else if (totalTime === 0) {
+                                        clearInterval(intervalTwo);
+                                    }
+                                }, 1000);
+                            }
+                        }
+
+                    }, 1000);
+                }
             }
 
         }, 1000);
@@ -121,6 +199,8 @@ setTimeout(function() {
     } else {
         disMinutes.innerHTML = "00";
         disSeconds.innerHTML = "00";
+        timerMinute.innerHTML = "00";
+        timerSeconds.innerHTML = "00";
     }
 
     return totalTime;
