@@ -25,7 +25,11 @@ class SecurityController extends AbstractController
         $cart = $cartManager->getCurrentCart();
 
         if ($this->getUser()) {
-            return $this->redirectToRoute('app_profil');
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('app_admin');
+            } else {
+                return $this->redirectToRoute('app_profil');
+            }
         }
 
         // get the login error if there is one

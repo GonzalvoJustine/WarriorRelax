@@ -16,7 +16,7 @@
                     </a>
                 </p>
 
-                <form method="post">
+                <form action="{{ path('app_login') }}" method="post">
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
@@ -43,7 +43,7 @@
                     <input type="hidden" name="_target_path" value="{{ path('app_profil') }}"/>
 
                     <div class="checkbox mb-3">
-                        <label>
+                        <label class="label-true">
                             <input type="checkbox" name="_remember_me"> Se souvenir de moi
                         </label>
                     </div>

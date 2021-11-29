@@ -52,6 +52,9 @@ input, select {
     display: flex;
     flex-direction: column;
   }
+  ul li {
+    list-style: none;
+  }
 }
 
 #profil {

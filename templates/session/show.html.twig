@@ -36,7 +36,7 @@
         {% set counter = ( counter | default(0) ) + 1 %}
 
     <div id="launch-{{ counter }}" class="d-none">
-        <h1 class="bandeau">Exercice {{ title }}</h1>
+        <h1 class="bandeau">Exercice {{ exercise.exercise.title }}</h1>
 
         <div class="container">
             <div id="session" class="row">
@@ -56,9 +56,9 @@
                         {% endif %}
                         <div class="timer__background">
                             <div class="timer__display">
-                                <span class="display minute"></span>
+                                <span id="minute-{{ counter }}" class="display minute"></span>
                                 <span class="display colon">:</span>
-                                <span class="display secondes"></span>
+                                <span id="secondes-{{ counter }}" class="display secondes"></span>
                             </div>
                         </div>
                     </div>
@@ -68,6 +68,7 @@
                             <div class="number">
                                 {% if cart.items.count > 0 %}
                                     Exercice {{ counter }}/{{ cart.total }}
+                                    <div id="total" class="d-none">{{ cart.total }}</div>
                                 {% else %}
                                     Exercice 0/0
                                 {% endif %}
@@ -78,14 +79,14 @@
             </div>
         </div>
 
-        <div class="timer-input">
+        <div class="timer-input d-none">
             <div class="input__container">
                 <label for="inp-minute">Minutes</label>
-                <input type="text" id="inp-minute" value={{ exercise.time|date('i') }} />
+                <input type="text" id="inp-minute-{{ counter }}" value={{ exercise.time|date('i') }} />
             </div>
             <div class="input__container">
                 <label for="inp-seconds">Seconds</label>
-                <input type="text" id="inp-seconds" value={{ exercise.time|date('s') }} />
+                <input type="text" id="inp-seconds-{{ counter }}" value={{ exercise.time|date('s') }} />
             </div>
         </div>
     </div>
@@ -113,11 +114,9 @@
                     <div class="number-exercise">
                         <div class="block-number">
                             <div class="number">
-
                                 {% if cart.items.count > 0 %}
                                     Prochain {{ counter + 1 }}/{{ cart.total }}
                                 {% endif %}
-
                             </div>
                         </div>
                     </div>
@@ -137,5 +136,9 @@
     </div>
 
     {% endfor %}
+
+    <div id="end" class="d-none">
+        <h1 class="bandeau p-5">Bravo vous avez fini !</h1>
+    </div>
 
 {% endblock %}

@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cette adresse mail")
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['read:User:collection']],
@@ -202,7 +201,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**

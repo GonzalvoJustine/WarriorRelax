@@ -21,18 +21,19 @@
                     </a>
                 </p>
                 {{ form_start(registrationForm, { 'attr': {'class': 'form-register'} }) }}
-                {{ form_errors(registrationForm.username) }}
-                {{ form_row(registrationForm.username) }}
-                {{ form_errors(registrationForm.email) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_errors(registrationForm.password) }}
-                {{ form_row(registrationForm.password) }}
-                {{ form_row(registrationForm.agreeTerms) }}
 
-                <button type="submit" class="btn btn-white">
-                    S'inscrire
-                    <i class="far fa-caret-square-right"></i>
-                </button>
+                    {% include '_partials/_flashbag.html.twig' %}
+
+                    {{ form_row(registrationForm.username) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.password) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+
+                    <button type="submit" class="btn btn-white">
+                        S'inscrire
+                        <i class="far fa-caret-square-right"></i>
+                    </button>
+
                 {{ form_end(registrationForm) }}
 
             </div>

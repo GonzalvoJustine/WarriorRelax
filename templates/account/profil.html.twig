@@ -7,6 +7,8 @@
     <div class="container">
         <div id="profil" class="row">
             <div class="col-12 col-md-4">
+                {% include '_partials/_flashbag.html.twig' %}
+
                 <div class="accordion" id="profilOne">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="profilProgression">
@@ -50,7 +52,6 @@
                         </h2>
                         <div id="collapseInformation" class="accordion-collapse collapse show" aria-labelledby="profilInformation" data-bs-parent="#profilInformation">
                             <div class="accordion-body">
-                                {% include '_partials/_flashbag.html.twig' %}
 
                                 {{ form_start(form_info) }}
                                     {{ form_row(form_info.gender) }}
@@ -93,35 +94,35 @@
                 </div>
             </div>
             <div class="col-12 col-md-4">
-                <div class="accordion" id="profilThree">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="profilParam">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseParam" aria-expanded="true" aria-controls="collapseParam">
-                                <i class="fas fa-cogs"></i>
-                                Paramètre
-                            </button>
-                        </h2>
-                        <div id="collapseParam" class="accordion-collapse collapse show" aria-labelledby="profilParam" data-bs-parent="#profilParam">
-                            <div class="accordion-body">
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <p>Vous êtes connecté en tant qu'administrateur</p>
-                                {% elseif is_granted('ROLE_USER') %}
-                                    <p>Vous êtes connecté en tant d'utilisateur</p>
-                                {% endif %}
-                                Les paramètres sont en cours de création, merci de votre compréhension.
-                            </div>
+            <div class="accordion" id="profilThree">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="profilParam">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseParam" aria-expanded="true" aria-controls="collapseParam">
+                            <i class="fas fa-cogs"></i>
+                            Paramètre
+                        </button>
+                    </h2>
+                    <div id="collapseParam" class="accordion-collapse collapse show" aria-labelledby="profilParam" data-bs-parent="#profilParam">
+                        <div class="accordion-body">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <p>Vous êtes connecté en tant qu'administrateur</p>
+                            {% elseif is_granted('ROLE_USER') %}
+                                <p>Vous êtes connecté en tant d'utilisateur</p>
+                            {% endif %}
+                            Les paramètres sont en cours de création, merci de votre compréhension.
                         </div>
                     </div>
                 </div>
-                <a href="{{ path('app_logout') }}" class="btn btn-white">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Se déconnecter
-                </a>
-                <a href="{{ path('app_delete_user') }}" class="btn btn-white">
-                    <i class="far fa-trash-alt"></i> Supprimer mon compte
-                </a>
             </div>
+            <a href="{{ path('app_logout') }}" class="btn btn-white">
+                <i class="fas fa-sign-out-alt"></i>
+                Se déconnecter
+            </a>
+            <a href="{{ path('app_delete_user') }}" class="btn btn-white">
+                <i class="far fa-trash-alt"></i> Supprimer mon compte
+            </a>
+        </div>
         </div>
     </div>
 

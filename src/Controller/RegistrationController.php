@@ -42,21 +42,53 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasherInterface->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            $user->setCreatedAt(new \DateTime());
 
-            $entityManager->persist($user);
+            $userN = $entityManager->getRepository(User::class)->findOneBy([
+                'username' => $form->get('username')->getData(),
+            ]);
+            $userE = $entityManager->getRepository(User::class)->findOneBy([
+                'email' => $form->get('email')->getData(),
+            ]);
 
-            $entityManager->flush();
+            if($userN != null) {
+                $username = $userN->getUsername();
+            } else {
+                $username = '';
+            }
 
-            $this->addFlash('success', 'Votre compte utilisateur a bien été créé');
+            if($userE != null) {
+                $email = $userE->getEmail();
+            } else {
+                $email = '';
+            }
 
-            return $this->redirectToRoute('app_profil');
+            if ($username || $email) {
+                $this->addFlash('danger', 'Il y a déjà un compte avec cette identifiant ou cette email.');
+            } else {
+                $user->setPassword(
+                    $userPasswordHasherInterface->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+                $user->setCreatedAt(new \DateTime());
+
+                $entityManager->persist($user);
+
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre compte a bien été créé');
+
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                    (new TemplatedEmail())
+                        ->from(new Address('test.warriorR@gmail.com', 'Warrior Relax'))
+                        ->to($user->getEmail())
+                        ->subject('Merci de confirmer votre email')
+                        ->htmlTemplate('emails/confirmation_email.html.twig')
+                );
+
+                return $this->redirectToRoute('app_login');
+            }
         }
 
         return $this->render('registration/register.html.twig', [

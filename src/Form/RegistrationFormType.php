@@ -85,11 +85,6 @@ class RegistrationFormType extends AbstractType
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Entrer un mot de passe',
-                        ]),
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Pour des raisons de sécurité, votre mot de passe doit être de {{ limit }} caractères',
-                            'max' => 4096,
                         ])
                     ],
                 ],
