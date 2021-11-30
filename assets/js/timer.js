@@ -5,7 +5,9 @@ let end = document.getElementById('end');
 const btnStartElement = document.getElementById('play');
 const btnStopElement = document.getElementById('pause');
 
-let total = document.getElementById("total").innerHTML;
+if(document.getElementById("total") != null){
+    var total = document.getElementById("total").innerHTML;
+}
 
 const numberMax = total;
 
@@ -19,7 +21,9 @@ let rest = document.getElementById('break');
 
 let countdown = "0" + 5;
 
-countdownNumberEl.textContent = countdown;
+if(countdownNumberEl != null){
+    countdownNumberEl.textContent = countdown;
+}
 
 /******************************/
 /*        Launch timer        */
@@ -32,7 +36,9 @@ let timer = setInterval(function() {
     } else {
         countdown = 0;
     }
-    countdownNumberEl.textContent = "0" + countdown;
+    if(countdownNumberEl != null) {
+        countdownNumberEl.textContent = "0" + countdown;
+    }
 }, 1000);
 
 /******************************/
@@ -54,10 +60,18 @@ const inpTimerSeconds = document.getElementById("inp-timer-seconds");
 // Additional Variables
 let resume;
 
-disMinutes.innerHTML = "00";
-disSeconds.innerHTML = "00";
-timerMinute.innerHTML = "00";
-timerSeconds.innerHTML = "00";
+if(disMinutes != null){
+    disMinutes.innerHTML = "00";
+}
+if(disSeconds != null){
+    disSeconds.innerHTML = "00";
+}
+if(timerMinute != null){
+    timerMinute.innerHTML = "00";
+}
+if(timerSeconds != null){
+    timerSeconds.innerHTML = "00";
+}
 
 // making the timer
 let interval;
@@ -67,35 +81,38 @@ function textCorrection(element, value) {
     element.innerHTML = value < 10 ? "0" + value : value;
 
 }
+if(btnStartElement != null) {
+    btnStartElement.addEventListener('click', startTimer = () => {
+        if (!interval) {
+            interval = setInterval(() => {
+                const minutes = Math.floor(totalTime / 60);
+                const seconds = totalTime % 60;
 
-btnStartElement.addEventListener('click', startTimer = () => {
-    if (!interval) {
-        interval = setInterval(() => {
-            const minutes = Math.floor(totalTime / 60);
-            const seconds = totalTime % 60;
+                textCorrection(disMinutes, minutes);
+                textCorrection(disSeconds, seconds);
+                textCorrection(timerMinute, minutes);
+                textCorrection(timerSeconds, seconds);
 
-            textCorrection(disMinutes, minutes);
-            textCorrection(disSeconds, seconds);
-            textCorrection(timerMinute, minutes);
-            textCorrection(timerSeconds, seconds);
+                if (totalTime > 0) {
+                    totalTime--;
+                }
+            }, 1000);
+            resume = false;
+        }
+        btnStartElement.classList.add("d-none");
+        btnStopElement.classList.remove("d-none");
+    });
+}
 
-            if (totalTime > 0) {
-                totalTime--;
-            }
-        }, 1000);
-        resume = false;
-    }
-    btnStartElement.classList.add("d-none");
-    btnStopElement.classList.remove("d-none");
-});
-
-btnStopElement.addEventListener('click', stopTimer = () => {
-    clearInterval(interval);
-    resume = true;
-    interval = false;
-    btnStopElement.classList.add("d-none");
-    btnStartElement.classList.remove("d-none");
-});
+if(btnStopElement != null) {
+    btnStopElement.addEventListener('click', stopTimer = () => {
+        clearInterval(interval);
+        resume = true;
+        interval = false;
+        btnStopElement.classList.add("d-none");
+        btnStartElement.classList.remove("d-none");
+    });
+}
 
 function launchExercise(number) {
     interval = setInterval(() => {
@@ -168,34 +185,38 @@ function launchExercise(number) {
 setTimeout(function() {
     clearInterval(timer);
 
-    launch.classList.add("hidden-launch");
-
-    btnStopElement.classList.remove("d-none");
-    btnStartElement.classList.add("d-none");
+    if (launch != null) {
+        launch.classList.add("hidden-launch");
+    }
+    if (btnStopElement != null) {
+        btnStopElement.classList.remove("d-none");
+    }
+    if (btnStartElement != null) {
+        btnStartElement.classList.add("d-none");
+    }
 
     launchExercice = document.getElementById('launch-' + number);
 
-    launchExercice.classList.remove("d-none");
-    launchExercice.classList.add("d-block");
+    if (launchExercice != null) {
+        launchExercice.classList.remove("d-none");
+        launchExercice.classList.add("d-block");
+    }
 
-    totalTime = inpMinutes.value * 60 + inpSeconds.value * 1;
+    if(inpMinutes != null || inpSeconds != null) {
+        totalTime = inpMinutes.value * 60 + inpSeconds.value * 1;
 
-    if (inpMinutes.value != "" || inpSeconds.value != "") {
+        if (inpMinutes.value != "" || inpSeconds.value != "") {
 
-        launchExercise(number);
+            launchExercise(number);
 
-    } else {
-        disMinutes.innerHTML = "00";
-        disSeconds.innerHTML = "00";
-        timerMinute.innerHTML = "00";
-        timerSeconds.innerHTML = "00";
+        } else {
+            disMinutes.innerHTML = "00";
+            disSeconds.innerHTML = "00";
+            timerMinute.innerHTML = "00";
+            timerSeconds.innerHTML = "00";
+        }
     }
 
     return totalTime;
 
 }, 5000);
-
-/******************************/
-/*       Next exercice        */
-/******************************/
-

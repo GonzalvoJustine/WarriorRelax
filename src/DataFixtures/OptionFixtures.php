@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
 use App\Entity\Option;
 use Doctrine\Persistence\ObjectManager;
@@ -30,15 +31,5 @@ class OptionFixtures extends Fixture
         }
 
         $manager->flush();
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class
-        ];
     }
 }

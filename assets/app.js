@@ -1,28 +1,41 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
-
-// any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-// start the Stimulus application
 import './bootstrap';
 
 const $ = require('jquery');
-// this "modifies" the jquery module: adding behavior to it
-// the bootstrap module doesn't export/return anything
+
 require('bootstrap');
 
-// or you can include specific pieces
-// require('bootstrap/js/dist/tooltip');
-// require('bootstrap/js/dist/popover');
+$('[data-toggle="popover"]');
 
-$(document).ready(function() {
-    $('[data-toggle="popover"]');
+$('#categories').lightSlider({
+    item:4,
+    loop:false,
+    slideMove:2,
+    easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+    speed:600,
+    responsive : [
+        {
+            breakpoint:800,
+            settings: {
+                item:3,
+                slideMove:1,
+                slideMargin:6,
+            }
+        },
+        {
+            breakpoint:480,
+            settings: {
+                item:2,
+                slideMove:1
+            }
+        }
+    ]
 });
+
+/*$('.js-datepicker').datepicker({
+    format: 'MM/dd/yyyy'
+});*/
 
 import './js/timer.js';
 

@@ -10,17 +10,6 @@
             {{ encore_entry_link_tags('app') }}
             <link rel="shortcut icon" href="{{ asset('build/images/favicon.ico') }}" type="image/x-icon" />
         {% endblock %}
-        {% block javascripts %}
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-            {{ encore_entry_script_tags('app') }}
-            <script>
-                jQuery(document).ready(function() {
-                    $('.js-datepicker').datepicker({
-                        format: 'MM/dd/yyyy'
-                    });
-                });
-            </script>
-        {% endblock %}
     </head>
     <body>
         <div id="header" class="{% if app.request.get('_route') == 'session_show' %}session-show{% endif %}"
@@ -47,5 +36,9 @@
         {% block body %}{% endblock %}
 
         {% include 'layout/footer.html.twig' %}
+        {% block javascripts %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
 </html>

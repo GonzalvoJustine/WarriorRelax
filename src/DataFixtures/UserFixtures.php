@@ -115,7 +115,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            LevelFixtures::class
+            LevelFixtures::class,
         ];
     }
 

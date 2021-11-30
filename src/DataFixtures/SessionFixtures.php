@@ -29,8 +29,6 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
         $users = $manager->getRepository(User::class)->findAll();
         $sessions_history = $manager->getRepository(SessionHistory::class)->findAll();
 
-        $exercises = $manager->getRepository(Exercise::class)->findAll();
-
         $categories = $manager->getRepository(Category::class)->findAll();
         $domains = $manager->getRepository(Domain::class)->findAll();
 
@@ -39,7 +37,6 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
             shuffle($levels);
             shuffle($users);
             shuffle($sessions_history);
-            shuffle($exercises);
             shuffle($categories);
             shuffle($domains);
 
@@ -50,7 +47,6 @@ class SessionFixtures extends Fixture implements DependentFixtureInterface
                         ->setLevel($levels[0])
                         ->setUser($users[0])
                         ->setSessionHistory($sessions_history[0])
-                        ->addExercise($exercises[0])
                         ->addCategory($categories[0])
                         ->addDomain($domains[0])
             ;

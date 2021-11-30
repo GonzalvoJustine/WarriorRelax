@@ -38,7 +38,7 @@ class Exercise
     private ?string $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     #[Groups(['read:Exercise:item'])]
     private ?string $description;
