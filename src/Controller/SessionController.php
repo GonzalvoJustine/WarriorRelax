@@ -74,20 +74,10 @@ class SessionController extends AbstractController
 
         $exercises = $session->getOrderItems();
 
-        foreach ($exercises as $exercise) {
-            $details = $exercise;
-            $title = $exercise->getExercise()->getTitle();
-            $media = $exercise->getExercise()->getMedia();
-            $indication = $exercise->getExercise()->getIndication();
-        }
-
         return $this->render('session/show.html.twig', [
             'cart' => $cart,
             'session' => $session,
             'exercises' => $exercises,
-            'title' => $title,
-            'media' => $media,
-            'indication' => $indication,
         ]);
     }
 

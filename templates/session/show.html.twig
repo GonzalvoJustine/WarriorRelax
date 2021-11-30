@@ -5,16 +5,11 @@
 {% block body %}
 
     <div id="launch-one">
-        <h1 class="bandeau">Exercice {{ title }}</h1>
+        <h1 class="bandeau">Exercices</h1>
 
         <div class="container">
             <div id="session" class="row">
                 <div class="col-12">
-
-                    {# Media #}
-                    <div class="session-img">
-                        <img src="{{ media }}" alt="exercice {{ title }}" width="150">
-                    </div>
 
                     <div class="block-content">
                         <p><span>Préparez vous</span> la séance va se lancer</p>
@@ -44,7 +39,7 @@
 
                     {# Media #}
                     <div class="session-img">
-                        <img src="{{ exercise.exercise.media }}" alt="exercice {{ exercise.exercise.title }}" width="150">
+                        <img src="{{ exercise.exercise.image }}" alt="exercice {{ exercise.exercise.title }}" width="150">
                     </div>
 
                     {# Timer #}
@@ -138,7 +133,14 @@
     {% endfor %}
 
     <div id="end" class="d-none">
-        <h1 class="bandeau p-5">Bravo vous avez fini !</h1>
+        <h1 class="bandeau">Félicitation</h1>
+        <div class="container">
+            <div class="row">
+                <div id="session" class="col-12">
+                    <h2 class="block-content p-5">Vous avez fini !</h2>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

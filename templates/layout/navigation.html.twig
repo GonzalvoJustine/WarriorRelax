@@ -1,20 +1,20 @@
-{% if app.request.get('_route') == 'session_show' %}
+{#{% if app.request.get('_route') == 'session_show' %}
     <div id="navigation" class="bg-primary">
         <nav class="nav">
-            {#<div class="menu">
+            #}{#<div class="menu">
                 <i class="fas fa-volume-mute"></i>
-            </div>#}
+            </div>#}{#
             <a class="nav-link disabled{% if app.request.get('_route') == 'domain_index' %}active{% endif %}" href="{{ path('domain_index') }}">
                 <i class="fas fa-step-backward"></i>
             </a>
-            {#<div class="buttons">
+            #}{#<div class="buttons">
                 <div id="play">
                     <i class="fas fa-play"></i>
                 </div>
                 <div id="pause"class="d-none">
                     <i class="fas fa-pause"></i>
                 </div>
-            </div>#}
+            </div>#}{#
             <div class="buttons">
                 <div id="play" class="start">
                     <i class="fas fa-play"></i>
@@ -22,24 +22,24 @@
                 <div id="pause" class="d-none">
                     <i class="fas fa-pause"></i>
                 </div>
-                {#<div class="pause-resume-cancel none">
+                #}{#<div class="pause-resume-cancel none">
                     <div id="pause" class="btn pause-resume d-none">
                         <i class="fas fa-pause"></i>
                     </div>
-                </div>#}
+                </div>#}{#
             </div>
             <a class="nav-link {% if app.request.get('_route') == 'app_profil' %}active{% endif %}" href="{{ path('app_profil') }}">
                 <i class="fas fa-step-forward"></i>
             </a>
-            {#<a class="nav-link {% if app.request.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
+            #}{#<a class="nav-link {% if app.request.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_account_login') }}">
                 <div class="menu">
                     <i class="fas fa-ellipsis-v"></i>
                 </div>
-            </a>#}
+            </a>#}{#
         </nav>
         <div class="bordure"></div>
     </div>
-    {#<div class="jumbotron text-center">
+    #}{#<div class="jumbotron text-center">
         <div class="timer">
             <span class="minutes">
               00
@@ -49,8 +49,8 @@
               00
             </span>
         </div>
-    </div>#}
-{% else %}
+    </div>#}{#
+{% else %}#}
 <div id="navigation" class="bg-primary">
     <nav class="nav">
         <a class="nav-link {% if app.request.get('_route') == 'app_home' %}active{% endif %}" aria-current="page" href="{{ path('app_home') }}">
@@ -105,4 +105,5 @@
     </nav>
     <div class="bordure"></div>
 </div>
-{% endif %}
+{#
+{% endif %}#}

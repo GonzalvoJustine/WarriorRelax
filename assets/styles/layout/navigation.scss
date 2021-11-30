@@ -72,6 +72,15 @@
         display: flex;
         flex-direction: column;
         align-self: center;
+        &:hover {
+          color: $secondary;
+          opacity: 1;
+          i {
+            color: $secondary;
+            opacity: 1;
+            text-shadow: 0 0 3px #98A8BF;
+          }
+        }
         .mobile {
           display: flex;
           font-size: 1.25rem;

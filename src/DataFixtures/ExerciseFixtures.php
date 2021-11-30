@@ -61,7 +61,6 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                         ->setUser($users[0])
                         ->addCategory($categories[0])
                         ->addDomain($domains[0])
-                        ->setMedia($faker->imageUrl())
             ;
 
             if($name === 'Le danseur') {
