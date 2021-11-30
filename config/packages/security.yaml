@@ -35,7 +35,8 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
-
+            entry_point: App\Security\AuthenticationEntryPoint
+            access_denied_handler: App\Security\AccessDeniedHandler
                 # by default, the feature is enabled by checking a
                 # checkbox in the login form (see below), uncomment the
                 # following line to always enable it.
