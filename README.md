@@ -6,11 +6,6 @@ Pour tester cette application, vous devez d'abord suivre les étapes suivantes :
 Clonez le dépot sur votre machine : ```git clone https://github.com/GonzalvoJustine/WarriorRelax.git```<br>
 Déplacez vous dans le dossier : ```cd WarriorRelax``` <br>
 Installer composer : ```composer install``` <br>
-
-Modifier dans vendor/fzaninotto/faker/src/Faker/Lorem.php :<br>
-ligne 95 : ```return join($words, ' ') . '.';``` changer pour : ```return join(' ', $words) . '.';```<br>
-ligne 208 : ```return join($text, ' ') . '.';``` changer pour : ```return join(' ', $text) . '.';```
-
 Installer npm : ```npm install``` <br>
 Créez la base de données : ```php bin/console d:d:c``` <br>
 Exécutez les migrations : ```php bin/console doctrine:schema:update --force``` <br>
