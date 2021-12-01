@@ -81,33 +81,11 @@ class SessionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'session_end', methods: ['GET'])]
-    public function end(CartManager $cartManager, Session $session): Response
+    #[Route('/{id}/edit', name: 'session_edit', methods: ['GET','POST'])]
+    public function edit(CartManager $cartManager, Request $request, Session $session): Response
     {
         $cart = $cartManager->getCurrentCart();
 
-        $exercises = $session->getOrderItems();
-
-        foreach ($exercises as $exercise) {
-            $details = $exercise;
-            $title = $exercise->getExercise()->getTitle();
-            $media = $exercise->getExercise()->getMedia();
-            $indication = $exercise->getExercise()->getIndication();
-        }
-
-        return $this->render('session/end.html.twig', [
-            'cart' => $cart,
-            'session' => $session,
-            'exercises' => $exercises,
-            'title' => $title,
-            'media' => $media,
-            'indication' => $indication,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'session_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Session $session): Response
-    {
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
@@ -118,6 +96,7 @@ class SessionController extends AbstractController
         }
 
         return $this->renderForm('session/edit.html.twig', [
+            'cart' => $cart,
             'session' => $session,
             'form' => $form,
         ]);

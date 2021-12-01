@@ -100,12 +100,12 @@
                                 <span class="display timer-secondes"></span>
                             </div>
                         </div>
-                        <p class="go">
+                        {#<p class="go">
                             <i class="fas fa-arrow-right"></i>
                             Passer
-                        </p>
+                        </p>#}
                     </div>
-
+                    {% if counter < cart.total %}
                     <div class="number-exercise">
                         <div class="block-number">
                             <div class="number">
@@ -115,6 +115,8 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

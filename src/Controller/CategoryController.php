@@ -25,8 +25,10 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/new', name: 'category_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(CartManager $cartManager, Request $request): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -40,6 +42,7 @@ class CategoryController extends AbstractController
         }
 
         return $this->renderForm('category/new.html.twig', [
+            'cart' => $cart,
             'category' => $category,
             'form' => $form,
         ]);
@@ -60,8 +63,10 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'category_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Category $category): Response
+    public function edit(CartManager $cartManager, Request $request, Category $category): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
@@ -72,6 +77,7 @@ class CategoryController extends AbstractController
         }
 
         return $this->renderForm('category/edit.html.twig', [
+            'cart' => $cart,
             'category' => $category,
             'form' => $form,
         ]);

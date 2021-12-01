@@ -29,16 +29,16 @@ class ContactController extends AbstractController
                 ->from($contactFormData['email'])
                 ->to('test.warriorR@gmail.com')
                 ->subject('vous avez reçu un email')
-                ->text('Sender : '.$contactFormData['email'].\PHP_EOL.
+                ->text('Envoyé par : '.$contactFormData['email'].\PHP_EOL.
                     $contactFormData['message'],
                     'text/plain')
             ;
 
             $mailer->send($message);
 
-            $this->addFlash('success', 'Vore message a été envoyé');
+            $this->addFlash('success', 'Votre message a été envoyé');
 
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('app_contact');
         }
         return $this->render('contact/index.html.twig', [
             'cart' => $cart,

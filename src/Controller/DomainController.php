@@ -26,8 +26,10 @@ class DomainController extends AbstractController
     }
 
     #[Route('/new', name: 'domain_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(CartManager $cartManager, Request $request): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $domain = new Domain();
         $form = $this->createForm(DomainType::class, $domain);
         $form->handleRequest($request);
@@ -41,6 +43,7 @@ class DomainController extends AbstractController
         }
 
         return $this->renderForm('domain/new.html.twig', [
+            'cart' => $cart,
             'domain' => $domain,
             'form' => $form,
         ]);
@@ -61,8 +64,10 @@ class DomainController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'domain_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Domain $domain): Response
+    public function edit(CartManager $cartManager, Request $request, Domain $domain): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $form = $this->createForm(DomainType::class, $domain);
         $form->handleRequest($request);
 
@@ -73,6 +78,7 @@ class DomainController extends AbstractController
         }
 
         return $this->renderForm('domain/edit.html.twig', [
+            'cart' => $cart,
             'domain' => $domain,
             'form' => $form,
         ]);

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\ChangeCurrentPasswordFormType;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Manager\CartManager;
 use App\Model\ChangePassword;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,8 +38,10 @@ class ResetPasswordController extends AbstractController
      * Display & process form to request a password reset.
      */
     #[Route('', name: 'app_forgot_password_request')]
-    public function request(Request $request, MailerInterface $mailer): Response
+    public function request(CartManager $cartManager, Request $request, MailerInterface $mailer): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 
@@ -50,6 +53,7 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/request.html.twig', [
+            'cart' => $cart,
             'requestForm' => $form->createView(),
         ]);
     }
@@ -58,8 +62,9 @@ class ResetPasswordController extends AbstractController
      * Confirmation page after a user has requested a password reset.
      */
     #[Route('/check-email', name: 'app_check_email')]
-    public function checkEmail(): Response
+    public function checkEmail(CartManager $cartManager): Response
     {
+        $cart = $cartManager->getCurrentCart();
         // Generate a fake token if the user does not exist or someone hit this page directly.
         // This prevents exposing whether or not a user was found with the given email address or not
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
@@ -67,6 +72,7 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/check_email.html.twig', [
+            'cart' => $cart,
             'resetToken' => $resetToken,
         ]);
     }
@@ -75,8 +81,15 @@ class ResetPasswordController extends AbstractController
      * Validates and process the reset URL that the user clicked in their email.
      */
     #[Route('/reinitialisation/{token}', name: 'app_reset_password')]
-    public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, string $token = null): Response
+    public function reset(
+        CartManager $cartManager,
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasherInterface,
+        string $token = null
+    ): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.
@@ -125,6 +138,7 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/reset.html.twig', [
+            'cart' => $cart,
             'resetForm' => $form->createView(),
         ]);
     }
@@ -177,8 +191,14 @@ class ResetPasswordController extends AbstractController
      * Change the password.
      */
     #[Route('/profile', name: 'app_edit_password')]
-    public function editPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function editPassword(
+        CartManager $cartManager,
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder
+    )
     {
+        $cart = $cartManager->getCurrentCart();
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
@@ -203,6 +223,7 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/index.html.twig', [
+            'cart' => $cart,
             'form' => $form->createView(),
             'user' => $user
         ]);
