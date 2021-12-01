@@ -73,10 +73,13 @@
     left: 5%;
     right: 5%;
   }
-  &.carousel-item.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  &.carousel-item {
+    text-align: center;
+    .active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 @media (min-width: 375px) {

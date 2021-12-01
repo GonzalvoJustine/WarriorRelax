@@ -1,39 +1,41 @@
 {% if app.request.get('_route') != 'session_show' %}
 <footer>
-    <div class="container">
-        <div id="footer" class="row">
-            <div class="col-md-2 col-lg-3 d-none d-md-block">
-                <a href="{{ path('app_home') }}">
-                    <img src="{{ asset('build/images/logo/Logo.svg') }}" alt="Logo Warrior Relax" class="logo" width='150'/>
-                </a>
-            </div>
-            <div class="col-12 col-md-10 col-lg-9">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_contact') }}">
-                            <i class="far fa-envelope"></i>
-                            Contact
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('app_mentions_legales') }}">
-                            <i class="far fa-flag"></i>
-                            Mentions Légales
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_credits_photos') }}">
-                            <i class="fas fa-ghost"></i>
-                            Crédits photos
-                        </a>
-                    </li>
-                </ul>
-                <div class="copyright row">
-                    <div class="col-12 col-md-5 copy">
-                        <span>2021 © Warrior Relax</span>
-                    </div>
-                    <div class="col-12 col-md-7 create">
-                        <span>Création du site web par Justine Gonzalvo</span>
+    <div id="footer">
+        <div class="container">
+            <div  class="row">
+                <div class="col-md-2 col-lg-3 d-none d-md-block">
+                    <a href="{{ path('app_home') }}">
+                        <img src="{{ asset('build/images/logo/Logo.svg') }}" alt="Logo Warrior Relax" class="logo" width='150'/>
+                    </a>
+                </div>
+                <div class="col-12 col-md-10 col-lg-9">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_contact') }}">
+                                <i class="far fa-envelope"></i>
+                                Contact
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_mentions_legales') }}">
+                                <i class="far fa-flag"></i>
+                                Mentions Légales
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_credits_photos') }}">
+                                <i class="fas fa-ghost"></i>
+                                Crédits photos
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="copyright row">
+                        <div class="col-12 col-md-5 copy">
+                            <span>2021 © Warrior Relax</span>
+                        </div>
+                        <div class="col-12 col-md-7 create">
+                            <span>Création du site web par Justine Gonzalvo</span>
+                        </div>
                     </div>
                 </div>
             </div>

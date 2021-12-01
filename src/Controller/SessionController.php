@@ -41,7 +41,6 @@ class SessionController extends AbstractController
                 $item = $orderItem;
                 $session->addOrderItem($item);
             }
-
             $entityManager->persist($session);
             $entityManager->flush();
 

@@ -111,6 +111,13 @@ h1.create-session input {
     }
   }
 }
+#add_to_cart_time_hour, #cart_items_0_time_hour, #cart_items_1_time_hour, #cart_items_2_time_hour,
+#cart_items_3_time_hour, #cart_items_4_time_hour, #cart_items_5_time_hour, #cart_items_6_time_hour,
+#cart_items_7_time_hour, #cart_items_8_time_hour, #cart_items_9_time_hour, #cart_items_10_time_hour,
+#cart_items_11_time_hour, #cart_items_12_time_hour, #cart_items_13_time_hour, #cart_items_14_time_hour,
+#cart_items_15_time_hour {
+  display: none;
+}
 
 #add_to_cart_add {
   margin-top: .5rem!important;
@@ -124,6 +131,7 @@ h1.create-session input {
   left: 0;
   right: 0;
   color: #ECECEC;
+  z-index: 100;
   .link {
     display: flex;
     flex-direction: column;
