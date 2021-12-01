@@ -41,7 +41,7 @@
                 </div>
 
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('domain_edit', {'id': domain.id}) }}">edit</a>
+                    <a href="{{ path('domain_edit', {'id': domain.id}) }}" class="btn btn-white">edit</a>
 
                     {{ include('domain/_delete_form.html.twig') }}
                 {% endif %}

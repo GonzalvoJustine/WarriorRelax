@@ -3,11 +3,71 @@
 {% block title %}Edit Session{% endblock %}
 
 {% block body %}
-    <h1>Edit Session</h1>
 
-    {{ include('session/_form.html.twig', {'button_label': 'Update'}) }}
+    <h1 class="bandeau">Modification de la séance</h1>
+    <div id="cart-edit" class="container">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                {{ include('session/_form.html.twig', {'button_label': 'Sauvegarder le titre'}) }}
+            </div>
+            <div class="col-12 col-md-9">
+                {{ form_start(form) }}
+                <div class="card-header d-flex">
+                    <h2 class="h5 text-white">Mes exercices</h2>
+                    <div class="ml-auto mobile">
+                        {{ form_widget(form.save) }}
+                        {{ form_widget(form.clear, {
+                            'attr': {
+                                'class': 'd-none'
+                            }})
+                        }}
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for item in form.items %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="cart-img col-3">
+                                    <img src="{{ item.vars.data.exercise.image }}" alt="{{ item.vars.data.exercise.title }}" width={{ 50 }}>
+                                </div>
+                                <div class="block-content col-9">
+                                    <a href="{{ path('exercise_show', {'id': item.vars.data.exercise.id}) }}">
+                                        <h3 class="mt-0 mb-0 h5">{{ item.vars.data.exercise.title }}</h3>
+                                    </a>
 
-    <a href="{{ path('session_index') }}">back to list</a>
+                                    <small class="mobile">{{ item.vars.data.exercise.description[:50] }}...</small>
+                                    <div class="form-inline mt-2">
+                                        <div class="form-group mb-0">
+                                            <div class="time d-flex">
+                                                {{ form_widget(item.time) }}
+                                            </div>
+                                            {{ form_widget(item.quantity, {
+                                                'attr': {
+                                                    'class': 'form-control form-control-sm ' ~ (item.quantity.vars.valid ? '' : 'is-invalid')
+                                                }
+                                            }) }}
+                                            {{ form_widget(item.remove) }}
 
-    {{ include('session/_delete_form.html.twig') }}
+                                            <div class="invalid-feedback">
+                                                {{ form_errors(item.quantity) }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {{ form_end(form) }}
+            </div>
+
+            <a href="{{ path('session_show', {'id': session.id}) }}" class="btn btn-white">
+                <i class="fas fa-reply"></i> Retour en arrière
+            </a>
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

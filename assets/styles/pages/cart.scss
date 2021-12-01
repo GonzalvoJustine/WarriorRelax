@@ -24,7 +24,7 @@ h1.create-session input {
   margin: 0!important;
   width: 100%;
 }
-#cart-page {
+#cart-page, #cart-edit {
   > .row {
     display: flex;
     flex-direction: row-reverse;
@@ -163,7 +163,7 @@ h1.create-session input {
       }
     }
   }
-  #cart-page {
+  #cart-page, #cart-edit {
     .cart-img img {
       width: 90px;
     }
@@ -189,7 +189,7 @@ h1.create-session input {
   h1.create-session input {
     width: 30%;
   }
-  #cart-page {
+  #cart-page, #cart-edit {
     .cart-img img {
       width: 150px;
     }

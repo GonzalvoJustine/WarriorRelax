@@ -8,6 +8,7 @@ use App\Entity\OrderItem;
 use App\Entity\Session;
 use App\Form\CartType;
 use App\Form\SessionType;
+use App\Form\UpdateSessionType;
 use App\Manager\CartManager;
 use App\Repository\OrderItemRepository;
 use App\Repository\SessionRepository;
@@ -85,27 +86,42 @@ class SessionController extends AbstractController
     {
         $cart = $cartManager->getCurrentCart();
 
-        $form = $this->createForm(SessionType::class, $session);
+        $form = $this->createForm(UpdateSessionType::class, $session);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('session_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('session_edit', ['id' => $session->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $formCart = $this->createForm(CartType::class, $cart);
+        $formCart->handleRequest($request);
+
+        if ($formCart->isSubmitted() && $formCart->isValid()) {
+
+            $cart->setUpdatedAt(new \DateTime());
+            $cartManager->save($cart);
+
+            return $this->redirectToRoute('session_edit', ['id' => $session->getId()]);
         }
 
         return $this->renderForm('session/edit.html.twig', [
             'cart' => $cart,
             'session' => $session,
-            'form' => $form,
+            'formSession' => $form,
+            'form' => $formCart,
         ]);
     }
 
     #[Route('/{id}', name: 'session_delete', methods: ['POST'])]
-    public function delete(Request $request, Session $session): Response
+    public function delete(CartManager $cartManager, Request $request, Session $session): Response
     {
+        $cart = $cartManager->getCurrentCart();
+
         if ($this->isCsrfTokenValid('delete'.$session->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($cart);
             $entityManager->remove($session);
             $entityManager->flush();
         }
