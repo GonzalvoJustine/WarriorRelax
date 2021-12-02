@@ -140,9 +140,9 @@
             <div class="row">
                 <div id="session" class="col-12">
                     <h2 class="block-content p-5">Vous avez fini !</h2>
+                    <a href="{{ path('session_edit', {'id': session.id}) }}" class="btn btn-white">Modifier la séance</a>
 
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('session_edit', {'id': session.id}) }}" class="btn btn-white">Modifier la séance</a>
 
                         {{ include('session/_delete_form.html.twig') }}
                     {% endif %}
