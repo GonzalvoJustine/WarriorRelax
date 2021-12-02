@@ -1,5 +1,8 @@
 #home {
   text-align: center;
+  .blockOne {
+    margin-top: 0;
+  }
   .content p {
     margin-bottom: 1rem;
     &:last-child {

@@ -53,6 +53,7 @@ class ExerciseController extends AbstractController
         $form = $this->createForm(AddToCartType::class);
 
         $form->handleRequest($request);
+
         $cart = $cartManager->getCurrentCart();
 
         if ($form->isSubmitted() && $form->isValid()) {
