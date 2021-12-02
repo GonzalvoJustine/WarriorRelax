@@ -42,7 +42,7 @@
             </div>
 
             {% if is_granted('ROLE_ADMIN') %}
-                {#<a href="{{ path('exercise_edit', {'id': exercise.id}) }}">edit</a>#}
+                {#<a href="{{ path('exercise_edit', {'id': exercise.id}) }}" class="btn btn-white w-100">Modification de l'exercice</a>#}
 
                 {{ include('exercise/_delete_form.html.twig') }}
             {% endif %}

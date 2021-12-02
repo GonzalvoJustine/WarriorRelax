@@ -30,7 +30,7 @@
                 <td>{{ exercise.createdAt ? exercise.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     {#<a href="{{ path('exercise_show', {'id': exercise.id}) }}">show</a>
-                    <a href="{{ path('exercise_edit', {'id': exercise.id}) }}">edit</a>#}
+                    <a href="{{ path('exercise_edit', {'id': exercise.id}) }}" class="btn btn-white w-100">Modification de l'exercice</a>#}
                 </td>
             </tr>
         {% else %}
