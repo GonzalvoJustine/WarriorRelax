@@ -14,7 +14,7 @@
                 {{ form_start(form) }}
                 <div class="card-header d-flex">
                     <h2 class="h5 text-white">Mes exercices</h2>
-                    <div class="ml-auto mobile">
+                    <div class="ml-auto">
                         {{ form_widget(form.save) }}
                         {{ form_widget(form.clear, {
                             'attr': {
@@ -27,10 +27,10 @@
                     {% for item in form.items %}
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="cart-img col-3">
+                                <div class="cart-img col-4">
                                     <img src="{{ item.vars.data.exercise.image }}" alt="{{ item.vars.data.exercise.title }}" width={{ 50 }}>
                                 </div>
-                                <div class="block-content col-9">
+                                <div class="block-content col-8">
                                     <a href="{{ path('exercise_show', {'id': item.vars.data.exercise.id}) }}">
                                         <h3 class="mt-0 mb-0 h5">{{ item.vars.data.exercise.title }}</h3>
                                     </a>
@@ -61,11 +61,10 @@
                 </ul>
                 {{ form_end(form) }}
             </div>
-
-            <a href="{{ path('session_show', {'id': session.id}) }}" class="btn btn-white">
-                <i class="fas fa-reply"></i> Retour en arrière
-            </a>
-
+            <div class="col-12">
+                <a href="{{ path('session_show', {'id': session.id}) }}" class="btn btn-white">
+                    <i class="fas fa-reply"></i> Retour en arrière
+                </a>
             </div>
         </div>
     </div>

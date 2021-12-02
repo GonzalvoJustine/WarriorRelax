@@ -13,11 +13,11 @@
             {% if cart.items.count > 0 %}
 
                 <!-- Summary -->
-                <div class="col-12 col-md-4 mobile">
+                <div class="col-12 col-md-4">
                     <div class="card bg-transparent">
-                        <h5 class="card-header d-flex text-white">Total</h5>
-                        <div class="card-body bg-white">
-                            <ul class="list-group list-group-flush">
+                        <h5 class="card-header d-none d-md-flex text-white">Total</h5>
+                        <div id="launch-mobile" class="card-body">
+                            <ul class="list-group list-group-flush d-none d-md-block">
                                 <li class="list-group-item d-flex justify-content-between">
                                     <div><b>Exercices</b></div>
                                     <span><b>{{ cart.total }}</b></span>
@@ -36,9 +36,9 @@
                 <!-- List of exercises -->
                 <div class="col-12 col-md-8">
                     {{ form_start(form) }}
-                    <div class="card-header d-flex">
-                        <h2 class="h5 text-white">Mes exercices</h2>
-                        <div class="ml-auto mobile">
+                    <div class="card-header d-flex flex-column flex-md-row">
+                        <h2 class="h5 text-white pb-3">Mes exercices</h2>
+                        <div class="ml-auto d-flex">
                             {{ form_widget(form.save) }}
                             {{ form_widget(form.clear) }}
                         </div>
@@ -113,12 +113,12 @@
             </div>
             Temps
         </div>
-        <div class="link">
-            <a href="{#{{ path('session_show') }}#}">
+        {#<div class="link">
+            <a href="#}{#{{ path('session_show') }}#}{#">
                 <i class="far fa-play-circle"></i>
                 Lancer
             </a>
-        </div>
+        </div>#}
     </div>
 
 {% endblock %}
