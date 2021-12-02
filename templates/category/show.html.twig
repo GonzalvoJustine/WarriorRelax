@@ -40,12 +40,12 @@
                     </button>
                 </div>
 
-                {% if is_granted('ROLE_ADMIN') %}
+                {#{% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-white w-100">Modification de la catégorie</a>
 
                     {{ include('category/_delete_form.html.twig') }}
                 {% endif %}
-
+#}
             </div>
         </div>
     </div>
